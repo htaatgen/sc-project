@@ -1,2 +1,9 @@
 .idea/
 node_modules/
+Command Prompt.lnk
+desktop.ini
+public/angular.js
+public/bootstrap/
+public/jquery-2.2.0.js
+public/socket.io.js
+package.json
