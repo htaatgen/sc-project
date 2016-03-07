@@ -1,5 +1,5 @@
 # sc-project
-Trying to make a multiplayer game to try out some code.
+Trying to make a multiplayer game to try out some code, MEAN stack, learning modules etc. etc.
 
 Based on asteroids, star control, spacewar etc. etc.
 
@@ -10,6 +10,7 @@ to do:
 -Client-server side communication(multiplayer)(socket.io?)
 -Client lobby/ intro, ship configuration.
 -Player profiles, stats and level progression written to a mongo database.
+-Compatibility issues
 
 
 Currently uses:
