@@ -4,8 +4,9 @@
 
 'use strict';
 
-    class Object {
 
+module.exports = function () {
+    class Object {
         constructor(x, y, imageurl) {
             this.x = parseInt(x);
             this.y = parseInt(y);
@@ -22,3 +23,4 @@
     }
 
 
+}

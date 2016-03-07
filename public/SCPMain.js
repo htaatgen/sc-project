@@ -44,6 +44,10 @@ function keyDownHandler(e) {
     if (e.keyCode == 32) {
         shooting = true;
     }
+    if (e.keyCode == 87 || 83 || 68 || 65 || 32) {
+        socket.emit("keydown", {acc: accelerating, dec: decelerating, lrt: leftrotating, rtt: rightrotating})
+    }
+
 
 }
 
@@ -63,7 +67,9 @@ function keyUpHandler(e) {
     if (e.keyCode == 32) {
         shooting = false;
     }
-
+    if (e.keyCode == 87 || 83 || 68 || 65 || 32) {
+        socket.emit("keydown", {acc: accelerating, dec: decelerating, lrt: leftrotating, rtt: rightrotating})
+    }
 }
 
 function startGame() {
@@ -75,15 +81,7 @@ function startGame() {
 
 
 function update(delta) {
-    for (var x = 0; x < objects.length; x++) {
-        objects[x].updateObject(delta);
-    }
-    for (var x = 0; x < projectiles.length; x++) {
-        projectiles[x].updateObject(delta);
-    }
-    for (var x = 0; x < effects.length; x++) {
-        effects[x].updateObject(delta);
-    }
+        socket.emit("checkstate", delta)
 }
 
 function draw() {
@@ -118,10 +116,5 @@ function gameLoop(timestamp) {
     }
     draw();
     requestAnimationFrame(gameLoop);
-    if (netupdatecounter >= netupdatefreq) {
-        updateGameState();
-        netupdatecounter = 0;
-    }
-    else netupdatecounter++;
 }
 startGame();
