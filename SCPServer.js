@@ -20,20 +20,16 @@ app.get('/', function (req, res) {
     res.sendfile('SCProject.html');
 });
 
-var mainloop = function(){};
-
 var objects = [],
     projectiles = [],
-    effects = [],
-    idcounter = 0;
+    effects = [];
 
-var lastFrameTimeMs = 0,
-    maxFPS = 60,
-    delta = 1,
-    timestep = 1000 / 60;
+idcounter = 0;
 
-var screenwidth = 900,
-    screenheight = 600;
+var updatespeed = 2;
+
+screenwidth = 900;
+screenheight = 600;
 
 var accelerating = false,
     decelerating = false,
@@ -44,7 +40,8 @@ var accelerating = false,
 function startGame() {
 
     objects.push(new plr.Player(50, 50, 2, 0, "ship1sprite.png", "guns", 41, 26));
-    process.nextTick(gameLoop);
+    console.log(objects);
+   // process.nextTick(gameLoop);
 }
 
 startGame();
@@ -63,7 +60,7 @@ function update() {
 
 function gameLoop() {
     update();
-console.log("Tick.")
+    setTimeout(gameLoop, updatespeed);
     //if (timestamp < lastFrameTimeMs + (1000 / maxFPS)) {
     //    process.nextTick(gameLoop);
     //    return;
@@ -107,10 +104,10 @@ io.on('connection', function (socket) {
     socket.on('checkstate', function () {
         "use strict";
         update(1);
-        socket.emit('returnstate', objects)
+        socket.emit('returnstate', objects);
     });
 });
-http.listen(3000, function () {
+http.listen(3001, function () {
     console.log("Server activated.")
 });
 
