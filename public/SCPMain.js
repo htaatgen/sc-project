@@ -45,7 +45,7 @@ function keyDownHandler(e) {
         shooting = true;
     }
     if (e.keyCode == 87 || 83 || 68 || 65 || 32) {
-        socket.emit("keydown", {acc: accelerating, dec: decelerating, lrt: leftrotating, rtt: rightrotating})
+        socket.emit("keypress", {acc: accelerating, dec: decelerating, lrt: leftrotating, rtt: rightrotating})
     }
 
 
@@ -68,7 +68,7 @@ function keyUpHandler(e) {
         shooting = false;
     }
     if (e.keyCode == 87 || 83 || 68 || 65 || 32) {
-        socket.emit("keydown", {acc: accelerating, dec: decelerating, lrt: leftrotating, rtt: rightrotating})
+        socket.emit("keypress", {acc: accelerating, dec: decelerating, lrt: leftrotating, rrt: rightrotating})
     }
 }
 

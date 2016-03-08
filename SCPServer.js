@@ -43,9 +43,12 @@ startGame();
 io.on('connection', function (socket) {
     console.log("User connect.");
 
-    socket.on('keypress', function (data){
+    socket.on('keypress', function (data) {
         "use strict";
-
+        accelerating = this.acc;
+        decelerating = this.dec;
+        leftrotating = this.lrt;
+        rightrotating = this.rrt;
     })
 
     socket.on('checkstate', function (data) {
