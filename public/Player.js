@@ -5,14 +5,8 @@
 
 
 class Player extends MovObj {
-    constructor(x, y, acc, rot, imageurl, primaryattacktype, imgx, imgy) {
-        super(x, y, acc, rot, imageurl);
-        this.firetimer = 0;
-        this.rof = 50;
-        this.shotready = true;
-        this.primaryattacktype = primaryattacktype;
-        this.momx = 0;
-        this.momy = 0;
+    constructor(id, x, y, acc, rot, imageurl, imgx, imgy) {
+        super(id, x, y, acc, rot, imageurl);
         this.imgx = imgx;
         this.imgy = imgy;
         this.spriteselect = 0;

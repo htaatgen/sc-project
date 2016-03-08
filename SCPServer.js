@@ -40,7 +40,7 @@ shooting = false;
 
 function startGame() {
 
-    objects.push(new plr.Player(50, 50, 2, 0, "ship1sprite.png", "guns", 41, 26));
+    objects.push(new plr.Player(50, 50, 0.05, 0, "ship1sprite.png", "guns", 41, 26));
     process.nextTick(gameLoop);
 }
 
@@ -60,7 +60,10 @@ function update() {
 
 function gameLoop() {
     update();
-    setTimeout(gameLoop, updatespeed);
+    //Commented out the serverside loop.
+    //setTimeout(gameLoop, updatespeed);
+
+
     //if (timestamp < lastFrameTimeMs + (1000 / maxFPS)) {
     //    process.nextTick(gameLoop);
     //    return;

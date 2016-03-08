@@ -20,8 +20,6 @@ class MovObj extends obj.Object {
         if (this.x <= 0) this.x += screenwidth;
         if (this.y >= screenheight) this.y -= screenheight;
         if (this.y <= 0) this.y += screenheight;
-        if (this.rot >= 360) this.rot -= 360;
-
     }
 
     updateObject() {

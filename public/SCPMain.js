@@ -45,7 +45,6 @@ function keyUpHandler(e) {
 }
 
 function startGame() {
-
     requestAnimationFrame(gameLoop);
 }
 
@@ -77,7 +76,7 @@ function gameLoop(timestamp) {
 
     var numUpdateSteps = 0;
     while (delta >= timestep) {
-        update(delta);
+        update();
         delta -= timestep;
         if (++numUpdateSteps >= 240) {
             delta = 0;
