@@ -4,23 +4,9 @@
 
 "use strict";
 
-var netupdatecounter = 0,
-    netupdatefreq = 200,
-    delta = 1,
-    radianfix = Math.PI / 180
+var SCPS = require("./SCPServer.js");
 
 
-function update(delta) {
-    for (var x = 0; x < objects.length; x++) {
-        objects[x].updateObject(delta);
-    }
-    for (var x = 0; x < projectiles.length; x++) {
-        projectiles[x].updateObject(delta);
-    }
-    for (var x = 0; x < effects.length; x++) {
-        effects[x].updateObject(delta);
-    }
-}
 
 //function gameLoop(timestamp) {
 //    if (timestamp < lastFrameTimeMs + (1000 / maxFPS)) {

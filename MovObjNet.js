@@ -6,7 +6,8 @@ var obj = require("./ObjectNet.js");
 var SCPS = require("./SCPServer.js");
 
 var screenwidth = SCPS.screenwidth,
-    screeheight = SCPS.screenheight;
+    screenheight = SCPS.screenheight;
+var radianfix = Math.PI / 180;
 
 class MovObj extends obj.Object {
 
@@ -18,20 +19,19 @@ class MovObj extends obj.Object {
         this.updateLogicMovObj();
     }
 
-    updateLogicMovObj(delta) {
-        if (delta != undefined) {
-            this.x += Math.cos(radianfix * this.rot) * this.acc * delta / 1000;
-            this.y += Math.sin(radianfix * this.rot) * this.acc * delta / 1000;
-            if (this.x >= screenwidth) this.x -= screenwidth;
-            if (this.x <= 0) this.x += screenwidth;
-            if (this.y >= screeheight) this.y -= screeheight;
-            if (this.y <= 0) this.y += screeheight;
-            if (this.rot >= 360) this.rot -= 360;
-        }
+    updateLogicMovObj() {
+        this.x += Math.cos(radianfix * this.rot) * this.acc;
+        this.y += Math.sin(radianfix * this.rot) * this.acc;
+        if (this.x >= screenwidth) this.x -= screenwidth;
+        if (this.x <= 0) this.x += screenwidth;
+        if (this.y >= screenheight) this.y -= screenheight;
+        if (this.y <= 0) this.y += screenheight;
+        if (this.rot >= 360) this.rot -= 360;
+
     }
 
-    updateObject(delta) {
-        this.updateLogicMovObj(delta);
+    updateObject() {
+        this.updateLogicMovObj();
     }
 }
 

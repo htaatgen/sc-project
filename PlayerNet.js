@@ -54,6 +54,7 @@ class Player extends mobj.MovObj {
             else this.spriteselect = 2;
             this.spawnFlare(-20, 8, 180, "explo1.png", 11, 11, 6);
             this.spawnFlare(-20, -8, 180, "explo1.png", 11, 11, 6);
+            console.log(this.x)
         }
         if (SCPS.rightrotating == true) this.rot += 2;
         if (SCPS.leftrotating == true) this.rot -= 2;
@@ -79,8 +80,9 @@ class Player extends mobj.MovObj {
                 case "beam":
                     break;
                 default:
-                    projectiles.push(new Proj(this.x, this.y, this.acc + 150, this.rot, "bolt.png", 100, 10));
-                    this.rof = 6;
+                    this.spawnProj(20, 0, 250, "bolt.png", 150, 50);
+                    this.rof = 20;
+                    break;
             }
             this.shotready = false;
         }

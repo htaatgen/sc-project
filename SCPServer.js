@@ -20,13 +20,20 @@ app.get('/', function (req, res) {
     res.sendfile('SCProject.html');
 });
 
+var mainloop = function(){};
+
 var objects = [],
     projectiles = [],
     effects = [],
     idcounter = 0;
 
+var lastFrameTimeMs = 0,
+    maxFPS = 60,
+    delta = 1,
+    timestep = 1000 / 60;
+
 var screenwidth = 900,
-    screenheight= 600;
+    screenheight = 600;
 
 var accelerating = false,
     decelerating = false,
@@ -37,11 +44,46 @@ var accelerating = false,
 function startGame() {
 
     objects.push(new plr.Player(50, 50, 2, 0, "ship1sprite.png", "guns", 41, 26));
-
-    // requestAnimationFrame(gameLoop);
+    process.nextTick(gameLoop);
 }
 
 startGame();
+
+function update() {
+    for (var x = 0; x < objects.length; x++) {
+        objects[x].updateObject();
+    }
+    for (var x = 0; x < projectiles.length; x++) {
+        projectiles[x].updateObject();
+    }
+    for (var x = 0; x < effects.length; x++) {
+        effects[x].updateObject();
+    }
+}
+
+function gameLoop() {
+    update();
+console.log("Tick.")
+    //if (timestamp < lastFrameTimeMs + (1000 / maxFPS)) {
+    //    process.nextTick(gameLoop);
+    //    return;
+    //}
+    //delta += timestamp - lastFrameTimeMs;
+    //lastFrameTimeMs = timestamp;
+    //
+    //var numUpdateSteps = 0;
+    //while (delta >= timestep) {
+    //    update(delta);
+    //    delta -= timestep;
+    //    if (++numUpdateSteps >= 240) {
+    //        delta = 0;
+    //        break;
+    //    }
+    //}
+    //draw();
+    //requestAnimationFrame(gameLoop);
+}
+
 
 io.on('connection', function (socket) {
     console.log("User connect.");
@@ -64,6 +106,7 @@ io.on('connection', function (socket) {
 
     socket.on('checkstate', function () {
         "use strict";
+        update(1);
         socket.emit('returnstate', objects)
     });
 });
