@@ -3,24 +3,15 @@
  */
 
 'use strict';
-
-
-module.exports = function () {
+var SCPS = require("./SCPServer.js");
     class Object {
         constructor(x, y, imageurl) {
             this.x = parseInt(x);
             this.y = parseInt(y);
-            this.image = new Image();
-            this.image.src = imageurl;
+            this.imageurl = imageurl;
             this.health = 100;
-            this.drawObject();
-            this.id = requestId();
-        }
-
-        drawObject() {
-            ctx.drawImage(this.image, this.x, this.y);
+            this.id = SCPS.idcounter;
+            SCPS.idcounter++;
         }
     }
-
-
-}
+module.exports.Object = Object;
