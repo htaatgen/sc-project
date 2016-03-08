@@ -5,18 +5,12 @@
 var obj = require("./ObjectNet.js");
 var SCPS = require("./SCPServer.js");
 
-var screenwidth = SCPS.screenwidth,
-    screenheight = SCPS.screenheight;
-var radianfix = Math.PI / 180;
-
 class MovObj extends obj.Object {
 
     constructor(x, y, acc, rot, imageurl) {
         super(x, y, imageurl);
         this.acc = acc;
         this.rot = rot;
-        this.updateObject();
-        this.updateLogicMovObj();
     }
 
     updateLogicMovObj() {

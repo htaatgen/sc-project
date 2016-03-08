@@ -20,9 +20,6 @@ class Player extends mobj.MovObj {
         this.imgx = imgx;
         this.imgy = imgy;
         this.spriteselect = 0;
-        this.updateObject();
-        this.playerControls();
-        this.playerPrimaryAttack();
     }
 
     spawnProj(x, y, accadjust, imageurl, lifetime, damage) {
@@ -49,16 +46,16 @@ class Player extends mobj.MovObj {
     }
 
     playerControls() {
-        if (SCPS.accelerating == true) {
+        if (accelerating == true) {
             if (this.health <= 50) this.spriteselect = 3;
             else this.spriteselect = 2;
             this.spawnFlare(-20, 8, 180, "explo1.png", 11, 11, 6);
             this.spawnFlare(-20, -8, 180, "explo1.png", 11, 11, 6);
             console.log(this.x)
         }
-        if (SCPS.rightrotating == true) this.rot += 2;
-        if (SCPS.leftrotating == true) this.rot -= 2;
-        if (SCPS.accelerating != true) {
+        if (rightrotating == true) this.rot += 2;
+        if (leftrotating == true) this.rot -= 2;
+        if (accelerating != true) {
             if (this.health <= 50) this.spriteselect = 1;
             else this.spriteselect = 0;
         }
@@ -66,7 +63,7 @@ class Player extends mobj.MovObj {
 
     playerPrimaryAttack() {
 
-        if (SCPS.shooting == true && this.shotready == true) {
+        if (shooting == true && this.shotready == true) {
             switch (this.primaryattacktype) {
                 case "bolt":
                     this.spawnProj(20, 0, 250, "bolt.png", 150, 50);
@@ -93,26 +90,26 @@ class Player extends mobj.MovObj {
         this.firetimer--;
     }
 
-    updateLogicMovObj(delta) {
-        if (delta != undefined) {
-            if (accelerating) {
-                this.momx += Math.cos(radianfix * this.rot) * this.acc * delta / 1000;
-                this.momy += Math.sin(radianfix * this.rot) * this.acc * delta / 1000;
-            }
-            this.x += this.momx;
-            this.y += this.momy;
-            if (this.x >= SCPCanvas.width) this.x -= SCPCanvas.width;
-            if (this.x <= 0) this.x += SCPCanvas.width;
-            if (this.y >= SCPCanvas.height) this.y -= SCPCanvas.height;
-            if (this.y <= 0) this.y += SCPCanvas.height;
-            if (this.rot >= 360) this.rot -= 360;
+    updateLogicMovObj() {
+        if (accelerating == true) {
+            console.log(this)
+            this.momx += Math.cos(radianfix / 180 * this.rot) * this.acc;
+            this.momy += Math.sin(radianfix / 180 * this.rot) * this.acc;
         }
+        this.x += this.momx;
+        this.y += this.momy;
+        if (this.x >= screenwidth) this.x -= screenwidth;
+        if (this.x <= 0) this.x += screenwidth;
+        if (this.y >= screenheight) this.y -= screenheight;
+        if (this.y <= 0) this.y += screenheight;
+        if (this.rot >= 360) this.rot -= 360;
+
     }
 
-    updateObject(delta) {
+    updateObject() {
         this.playerControls();
         this.playerPrimaryAttack();
-        this.updateLogicMovObj(delta)
+        this.updateLogicMovObj()
     }
 }
 

@@ -46,14 +46,12 @@ function keyUpHandler(e) {
 
 function startGame() {
 
-    objects.push(new Player(50, 50, 2, 0, "ship1sprite.png", "guns", 41, 26));
-
     requestAnimationFrame(gameLoop);
 }
 
 
-function update(delta) {
-    socket.emit("checkstate", delta)
+function update() {
+    socket.emit("checkstate", {})
 }
 
 function draw() {

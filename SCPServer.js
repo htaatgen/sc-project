@@ -20,28 +20,28 @@ app.get('/', function (req, res) {
     res.sendfile('SCProject.html');
 });
 
-var objects = [],
-    projectiles = [],
-    effects = [];
+objects = [];
+projectiles = [];
+effects = [];
 
 idcounter = 0;
+radianfix = Math.PI / 180;
 
-var updatespeed = 2;
+var updatespeed = 5;
 
 screenwidth = 900;
 screenheight = 600;
 
-var accelerating = false,
-    decelerating = false,
-    leftrotating = false,
-    rightrotating = false,
-    shooting = false;
+accelerating = false;
+decelerating = false;
+leftrotating = false;
+rightrotating = false;
+shooting = false;
 
 function startGame() {
 
     objects.push(new plr.Player(50, 50, 2, 0, "ship1sprite.png", "guns", 41, 26));
-    console.log(objects);
-   // process.nextTick(gameLoop);
+    process.nextTick(gameLoop);
 }
 
 startGame();

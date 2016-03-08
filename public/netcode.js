@@ -2,17 +2,16 @@
  * Created by Rik on 6-3-2016.
  */
 var socket = io();
-var idcounter = 0;
 
 socket.on('initialstate', function (data) {
 });
 
 socket.on('returnstate', function (data) {
     "use strict";
-    console.log(data);
+    console.log(data[0]);
     for (var x = 0; x < objects.length; x++) {
         if (data[x].id != objects[x].id) {
-            objects.push(new PlayerDummy(
+            objects.push(new Player(
                 data[x].id,
                 data[x].x,
                 data[x].y,
@@ -40,23 +39,3 @@ socket.on('returnstate', function (data) {
     console.log(objects);
 });
 
-socket.on('requestid', function () {
-    socket.emit("sendid", {id: idcounter})
-    idcounter++;
-});
-
-function requestId() {
-    "use strict";
-    socket.emit("requestid", function (data) {
-        console.log(data)
-        return data;
-    })
-}
-
-function updateGameState() {
-    var sendObjects = [];
-    for (var x = 0; x < objects.length; x++) {
-        sendObjects[x] = objects[x].playerNetData()
-    }
-    socket.emit("gamestate", sendObjects);
-}

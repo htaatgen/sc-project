@@ -8,8 +8,8 @@ var scps = require("./SCPServer.js");
 
     class Object {
         constructor(x, y, imageurl) {
-            this.x = parseInt(x);
-            this.y = parseInt(y);
+            this.x = x;
+            this.y = y;
             this.imageurl = imageurl;
             this.health = 100;
             this.id = idcounter;
