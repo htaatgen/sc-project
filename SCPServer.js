@@ -27,8 +27,6 @@ effects = [];
 idcounter = 0;
 radianfix = Math.PI / 180;
 
-var updatespeed = 5;
-
 screenwidth = 900;
 screenheight = 600;
 
@@ -61,7 +59,7 @@ function update() {
 function gameLoop() {
     update();
     //Commented out the serverside loop.
-    //setTimeout(gameLoop, updatespeed);
+    setTimeout(gameLoop, 10);
 
 
     //if (timestamp < lastFrameTimeMs + (1000 / maxFPS)) {
@@ -106,7 +104,6 @@ io.on('connection', function (socket) {
 
     socket.on('checkstate', function () {
         "use strict";
-        update(1);
         socket.emit('returnstate', objects);
     });
 });
