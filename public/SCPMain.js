@@ -29,47 +29,19 @@ document.addEventListener("keyup", keyUpHandler, false);
 
 
 function keyDownHandler(e) {
-    if (e.keyCode == 87) {
-        accelerating = true;
-    }
-    if (e.keyCode == 83) {
-        decelerating = true;
-    }
-    if (e.keyCode == 68) {
-        rightrotating = true;
-    }
-    if (e.keyCode == 65) {
-        leftrotating = true;
-    }
-    if (e.keyCode == 32) {
-        shooting = true;
-    }
-    if (e.keyCode == 87 || 83 || 68 || 65 || 32) {
-        socket.emit("keypress", {acc: accelerating, dec: decelerating, lrt: leftrotating, rtt: rightrotating})
-    }
-
-
+    if (e.keyCode == 87) socket.emit("keypressacc", {acc: true});
+    if (e.keyCode == 83) socket.emit("keypressdec", {dec: true});
+    if (e.keyCode == 68) socket.emit("keypressleft", {left: true});
+    if (e.keyCode == 65) socket.emit("keypressright", {right: true});
+    if (e.keyCode == 32) socket.emit("keypresssht", {sht: true});
 }
 
 function keyUpHandler(e) {
-    if (e.keyCode == 87) {
-        accelerating = false;
-    }
-    if (e.keyCode == 83) {
-        decelerating = false;
-    }
-    if (e.keyCode == 68) {
-        rightrotating = false;
-    }
-    if (e.keyCode == 65) {
-        leftrotating = false;
-    }
-    if (e.keyCode == 32) {
-        shooting = false;
-    }
-    if (e.keyCode == 87 || 83 || 68 || 65 || 32) {
-        socket.emit("keypress", {acc: accelerating, dec: decelerating, lrt: leftrotating, rrt: rightrotating})
-    }
+    if (e.keyCode == 87) socket.emit("keypressacc", {acc: false});
+    if (e.keyCode == 83) socket.emit("keypressdec", {dec: false});
+    if (e.keyCode == 68) socket.emit("keypressleft", {left: false});
+    if (e.keyCode == 65) socket.emit("keypressright", {right: false});
+    if (e.keyCode == 32) socket.emit("keypresssht", {sht: false});
 }
 
 function startGame() {
@@ -81,7 +53,7 @@ function startGame() {
 
 
 function update(delta) {
-        socket.emit("checkstate", delta)
+    socket.emit("checkstate", delta)
 }
 
 function draw() {

@@ -20,10 +20,13 @@ app.get('/', function (req, res) {
     res.sendfile('SCProject.html');
 });
 
-var objects = [];
-var projectiles = [];
-var effects = [];
-var objectcounter = 0;
+var objects = [],
+    projectiles = [],
+    effects = [],
+    idcounter = 0;
+
+var screenwidth = 900,
+    screenheight= 600;
 
 var accelerating = false,
     decelerating = false,
@@ -33,7 +36,7 @@ var accelerating = false,
 
 function startGame() {
 
-    //objects.push(new Player(50, 50, 2, 0, "ship1sprite.png", "guns", 41, 26));
+    objects.push(new plr.Player(50, 50, 2, 0, "ship1sprite.png", "guns", 41, 26));
 
     // requestAnimationFrame(gameLoop);
 }
@@ -43,45 +46,25 @@ startGame();
 io.on('connection', function (socket) {
     console.log("User connect.");
 
-    socket.on('keypress', function (data) {
-        "use strict";
-        accelerating = this.acc;
-        decelerating = this.dec;
-        leftrotating = this.lrt;
-        rightrotating = this.rrt;
-    })
+    socket.on('keypressacc', function (data) {
+        accelerating = data.acc;
+    });
+    socket.on('keypressdec', function (data) {
+        decelerating = data.dec;
+    });
+    socket.on('keypressleft', function (data) {
+        leftrotating = data.left;
+    });
+    socket.on('keypressright', function (data) {
+        rightrotating = data.right;
+    });
+    socket.on('keypresssht', function (data) {
+        shooting = data.sht;
+    });
 
-    socket.on('checkstate', function (data) {
+    socket.on('checkstate', function () {
         "use strict";
-        console.log(data);
-        for (var x = 0; x < objects.length; x++) {
-            if (data[x].id != objects[x].id) {
-                objects.push(new PlayerDummy(
-                    data[x].id,
-                    data[x].x,
-                    data[x].y,
-                    data[x].acc,
-                    data[x].rot,
-                    data[x].health,
-                    data[x].momx,
-                    data[x].momy,
-                    data[x].imageurl,
-                    data[x].spriteselect,
-                    data[x].imgx,
-                    data[x].imgy
-                ))
-            }
-            else {
-                objects[x].x = data[x].x,
-                    objects[x].y = data[x].y,
-                    objects[x].acc = data[x].acc,
-                    objects[x].rot = data[x].rot,
-                    objects[x].health = data[x].health,
-                    objects[x].momx = data[x].momx,
-                    objects[x].momy = data[x].momy
-            }
-        }
-        console.log(objects);
+        socket.emit('returnstate', objects)
     });
 });
 http.listen(3000, function () {
