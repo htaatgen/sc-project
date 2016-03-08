@@ -51,7 +51,6 @@ class Player extends mobj.MovObj {
             else this.spriteselect = 2;
             this.spawnFlare(-20, 8, 180, "explo1.png", 11, 11, 6);
             this.spawnFlare(-20, -8, 180, "explo1.png", 11, 11, 6);
-            console.log(this.x)
         }
         if (rightrotating == true) this.rot += 2;
         if (leftrotating == true) this.rot -= 2;
@@ -92,9 +91,8 @@ class Player extends mobj.MovObj {
 
     updateLogicMovObj() {
         if (accelerating == true) {
-            console.log(this)
-            this.momx += Math.cos(radianfix / 180 * this.rot) * this.acc;
-            this.momy += Math.sin(radianfix / 180 * this.rot) * this.acc;
+            this.momx += Math.cos(radianfix * this.rot) * this.acc;
+            this.momy += Math.sin(radianfix * this.rot) * this.acc;
         }
         this.x += this.momx;
         this.y += this.momy;
