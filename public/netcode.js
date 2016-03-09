@@ -6,7 +6,7 @@ var netcheckspeed = 60;
 var netcheckcounter = 0;
 
 
-function update() {
+function updateFromServer() {
     if (netcheckcounter >= netcheckspeed) {
         netcheckcounter = 0;
         socket.emit("checkstate", {})
@@ -20,7 +20,6 @@ socket.on('returnstate', function (data) {
     projectiles = [];
     for (var x = 0; x < data.objects.length; x++) {
         objects.push(new Player(
-            data.objects[x].id,
             data.objects[x].x,
             data.objects[x].y,
             data.objects[x].acc,
@@ -35,7 +34,6 @@ socket.on('returnstate', function (data) {
     }
     for (var x = 0; x < data.projectiles.length; x++) {
         projectiles.push(new Proj(
-            data.projectiles[x].id,
             data.projectiles[x].x,
             data.projectiles[x].y,
             data.projectiles[x].acc,

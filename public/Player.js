@@ -5,8 +5,8 @@
 
 
 class Player extends MovObj {
-    constructor(id, x, y, acc, rot, imageurl, imgx, imgy, momx, momy) {
-        super(id, x, y, acc, rot, imageurl);
+    constructor(x, y, acc, rot, imageurl, imgx, imgy, momx, momy) {
+        super(x, y, acc, rot, imageurl);
         this.imgx = imgx;
         this.imgy = imgy;
         this.momx = momx;
@@ -18,9 +18,9 @@ class Player extends MovObj {
         effects.push(new Flare(
             (Math.cos(radianfix * this.rot) * x) - (Math.sin(radianfix * -this.rot) * y) + this.x,
             (Math.sin(radianfix * this.rot) * x) - (Math.cos(radianfix * -this.rot) * y) + this.y,
-            50,
-            this.rot -180,
+            this.acc + 500,
             imageurl,
+            this.rot-180,
             imgx,
             imgy,
             imgtotal));
@@ -28,16 +28,25 @@ class Player extends MovObj {
 
     playerControls() {
         if (accelerating == true) {
-            if (this.health <= 50){ this.spriteselect = 3;}
-            else{ this.spriteselect = 2;}
-            this.spawnFlare(-20, 8, 180, "explo1.png", 11, 11, 6);
-            this.spawnFlare(-20, -8, 180, "explo1.png", 11, 11, 6);
+            if (this.health <= 50) {
+                this.spriteselect = 3;
+            }
+            else {
+                this.spriteselect = 2;
+            }
+            this.spawnFlare(-20, 8, "explo1.png", 11, 11, 6);
+            this.spawnFlare(-20, -8, "explo1.png", 11, 11, 6);
         }
-        if (rightrotating == true) this.rot -= 2;
-        if (leftrotating == true) this.rot += 2;
+        if (rightrotating == true) {
+            this.rot -= 2;
+        }
+        if (leftrotating == true) {
+            this.rot += 2;
+        }
         if (accelerating != true) {
             if (this.health <= 50) this.spriteselect = 1;
             else this.spriteselect = 0;
+
         }
     }
 

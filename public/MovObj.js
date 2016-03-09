@@ -4,11 +4,10 @@
 "use strict"
 
 class MovObj extends Object {
-    constructor(id, x, y, acc, rot, imageurl) {
-        super(id, x, y, imageurl);
+    constructor(x, y, acc, rot, imageurl) {
+        super(x, y, imageurl);
         this.acc = acc;
         this.rot = rot;
-        this.drawObject();
     }
 
     updateLogicMovObj(delta) {

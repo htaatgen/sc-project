@@ -6,13 +6,12 @@
 
 class Object {
 
-    constructor(id, x, y, imageurl) {
+    constructor(x, y, imageurl) {
         this.x = parseInt(x);
         this.y = parseInt(y);
         this.image = new Image();
         this.image.src = imageurl;
         this.health = 100;
-        this.id = id;
     }
 
     drawObject() {

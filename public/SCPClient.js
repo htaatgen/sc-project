@@ -108,13 +108,13 @@ function gameLoop(timestamp) {
 
     var numUpdateSteps = 0;
     while (delta >= timestep) {
-        update();
         delta -= timestep;
         if (++numUpdateSteps >= 240) {
             delta = 0;
             break;
         }
     }
+    updateFromServer();
     clientUpdate(delta);
     draw();
     requestAnimationFrame(gameLoop);

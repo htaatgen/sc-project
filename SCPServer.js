@@ -20,6 +20,8 @@ app.get('/', function (req, res) {
     res.sendfile('SCProject.html');
 });
 
+var looptimeMS=1;
+
 objects = [];
 projectiles = [];
 effects = [];
@@ -58,6 +60,7 @@ function update() {
 
 function gameLoop() {
     update();
+
     setTimeout(gameLoop, 10);
 
 
