@@ -103,7 +103,7 @@ io.on('connection', function (socket) {
 
     socket.on('checkstate', function () {
         "use strict";
-        socket.emit('returnstate', {objects, projectiles, effects});
+        socket.emit('returnstate', {objects, projectiles});
     });
 });
 http.listen(3001, function () {

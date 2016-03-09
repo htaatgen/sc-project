@@ -5,14 +5,12 @@
 "use strict"
 
 class Flare extends MovObj {
-    constructor(id, x, y, acc, rot, imageurl, imgx, imgy, imgtotal) {
-        super(id, x, y, acc, rot, imageurl);
+    constructor(x, y, acc, rot, imageurl, imgx, imgy, imgtotal) {
+        super(x, y, acc, rot, imageurl);
         this.imgx = imgx;
         this.imgy = imgy;
         this.imgtotal = imgtotal;
         this.animcycle = 0;
-        this.id = -1;
-
     }
 
     drawLogic() {

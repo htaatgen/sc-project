@@ -2,8 +2,7 @@
  * Created by Rik on 24-2-2016.
  */
 
-"use strict";
-
+'use strict';
 
 var objects = [];
 var projectiles = [];
@@ -29,23 +28,49 @@ document.addEventListener("keyup", keyUpHandler, false);
 
 
 function keyDownHandler(e) {
-    if (e.keyCode == 87) socket.emit("keypressacc", {acc: true});
-    if (e.keyCode == 83) socket.emit("keypressdec", {dec: true});
-    if (e.keyCode == 68) socket.emit("keypressleft", {left: true});
-    if (e.keyCode == 65) socket.emit("keypressright", {right: true});
-    if (e.keyCode == 32) socket.emit("keypresssht", {sht: true});
+    if (e.keyCode === 87) {
+        socket.emit("keypressacc", {acc: true});
+        accelerating = true;
+    }
+    if (e.keyCode === 83) {
+        socket.emit("keypressdec", {dec: true});
+        decelerating = true;
+    }
+    if (e.keyCode === 68) {
+        socket.emit("keypressleft", {left: true});
+        leftrotating = true;
+    }
+    if (e.keyCode === 65) {
+        socket.emit("keypressright", {right: true});
+        rightrotating = true;
+    }
+    if (e.keyCode === 32) {
+        socket.emit("keypresssht", {sht: true});
+        shooting = true;
+    }
 }
 
 function keyUpHandler(e) {
-    if (e.keyCode == 87) socket.emit("keypressacc", {acc: false});
-    if (e.keyCode == 83) socket.emit("keypressdec", {dec: false});
-    if (e.keyCode == 68) socket.emit("keypressleft", {left: false});
-    if (e.keyCode == 65) socket.emit("keypressright", {right: false});
-    if (e.keyCode == 32) socket.emit("keypresssht", {sht: false});
-}
-
-function startGame() {
-    requestAnimationFrame(gameLoop);
+    if (e.keyCode === 87) {
+        socket.emit("keypressacc", {acc: false});
+        accelerating = false;
+    }
+    if (e.keyCode === 83) {
+        socket.emit("keypressdec", {dec: false});
+        decelerating = false;
+    }
+    if (e.keyCode === 68) {
+        socket.emit("keypressleft", {left: false});
+        leftrotating = false;
+    }
+    if (e.keyCode === 65) {
+        socket.emit("keypressright", {right: false});
+        rightrotating = false;
+    }
+    if (e.keyCode === 32) {
+        socket.emit("keypresssht", {sht: false});
+        shooting = false;
+    }
 }
 
 function clientUpdate(delta) {
@@ -94,4 +119,9 @@ function gameLoop(timestamp) {
     draw();
     requestAnimationFrame(gameLoop);
 }
+
+function startGame() {
+    requestAnimationFrame(gameLoop);
+}
+
 startGame();

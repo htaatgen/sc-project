@@ -5,7 +5,6 @@
 var mobj = require("./MovObjNet.js");
 var SCPS = require("./SCPServer.js");
 var prj = require("./ProjNet.js");
-var flr = require("./FlareNet.js");
 
 class Player extends mobj.MovObj {
 
@@ -13,8 +12,6 @@ class Player extends mobj.MovObj {
         super(x, y, acc, rot, imageurl);
         this.firetimer = 0;
         this.rof = 50;
-        this.flaretimer = 0;
-        this.flarelimiter = 10;
         this.shotready = true;
         this.primaryattacktype = primaryattacktype;
         this.momx = 0;
@@ -35,28 +32,10 @@ class Player extends mobj.MovObj {
             damage));
     }
 
-    spawnFlare(x, y, rotadjust, imageurl, imgx, imgy, imgtotal) {
-        effects.push(new flr.Flare(
-            (Math.cos(radianfix * this.rot) * x) - (Math.sin(radianfix * -this.rot) * y) + this.x,
-            (Math.sin(radianfix * this.rot) * x) - (Math.cos(radianfix * -this.rot) * y) + this.y,
-            this.acc + 50,
-            this.rot - rotadjust,
-            imageurl,
-            imgx,
-            imgy,
-            imgtotal));
-    }
-
     playerControls() {
         if (accelerating == true) {
             if (this.health <= 50) this.spriteselect = 3;
             else this.spriteselect = 2;
-            if (this.flaretimer >= this.flarelimiter) {
-                this.spawnFlare(-20, 8, 180, "explo1.png", 11, 11, 6);
-                this.spawnFlare(-20, -8, 180, "explo1.png", 11, 11, 6);
-                this.flaretimer = 0;
-            }
-            else this.flaretimer++;
         }
         if (rightrotating == true) this.rot -= 2;
         if (leftrotating == true) this.rot += 2;

@@ -12,7 +12,6 @@ class Object {
         this.image = new Image();
         this.image.src = imageurl;
         this.health = 100;
-        this.drawObject();
         this.id = id;
     }
 

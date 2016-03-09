@@ -2,11 +2,9 @@
  * Created by Rik on 6-3-2016.
  */
 var socket = io();
-var netcheckspeed = 30;
+var netcheckspeed = 60;
 var netcheckcounter = 0;
 
-socket.on('initialstate', function (data) {
-});
 
 function update() {
     if (netcheckcounter >= netcheckspeed) {
@@ -20,7 +18,6 @@ socket.on('returnstate', function (data) {
     "use strict";
     objects = [];
     projectiles = [];
-    effects = [];
     for (var x = 0; x < data.objects.length; x++) {
         objects.push(new Player(
             data.objects[x].id,
@@ -30,7 +27,9 @@ socket.on('returnstate', function (data) {
             data.objects[x].rot,
             data.objects[x].imageurl,
             data.objects[x].imgx,
-            data.objects[x].imgy
+            data.objects[x].imgy,
+            data.objects[x].momx,
+            data.objects[x].momy
             )
         )
     }
@@ -45,20 +44,7 @@ socket.on('returnstate', function (data) {
             )
         )
     }
-    for (var x = 0; x < data.effects.length; x++) {
-        effects.push(new Flare(
-            data.effects[x].id,
-            data.effects[x].x,
-            data.effects[x].y,
-            data.effects[x].acc,
-            data.effects[x].rot,
-            data.effects[x].imageurl,
-            data.effects[x].imgx,
-            data.effects[x].imgy,
-            data.effects[x].imgtotal
-            )
-        )
-    }
+
     //else {
     //    projectiles[x].x = data.objects[x].x,
     //        objects[x].y = data.objects[x].y,

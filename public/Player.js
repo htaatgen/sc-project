@@ -1,17 +1,60 @@
 /**
  * Created by Rik on 3-3-2016.
  */
-"use strict"
+"use strict";
 
 
 class Player extends MovObj {
-    constructor(id, x, y, rot, imageurl, imgx, imgy, momx, momy) {
-        super(id, x, y, rot, imageurl);
+    constructor(id, x, y, acc, rot, imageurl, imgx, imgy, momx, momy) {
+        super(id, x, y, acc, rot, imageurl);
         this.imgx = imgx;
         this.imgy = imgy;
         this.momx = momx;
         this.momy = momy;
         this.spriteselect = 0;
+    }
+
+    spawnFlare(x, y, imageurl, imgx, imgy, imgtotal) {
+        effects.push(new Flare(
+            (Math.cos(radianfix * this.rot) * x) - (Math.sin(radianfix * -this.rot) * y) + this.x,
+            (Math.sin(radianfix * this.rot) * x) - (Math.cos(radianfix * -this.rot) * y) + this.y,
+            50,
+            this.rot -180,
+            imageurl,
+            imgx,
+            imgy,
+            imgtotal));
+    }
+
+    playerControls() {
+        if (accelerating == true) {
+            if (this.health <= 50){ this.spriteselect = 3;}
+            else{ this.spriteselect = 2;}
+            this.spawnFlare(-20, 8, 180, "explo1.png", 11, 11, 6);
+            this.spawnFlare(-20, -8, 180, "explo1.png", 11, 11, 6);
+        }
+        if (rightrotating == true) this.rot -= 2;
+        if (leftrotating == true) this.rot += 2;
+        if (accelerating != true) {
+            if (this.health <= 50) this.spriteselect = 1;
+            else this.spriteselect = 0;
+        }
+    }
+
+    updateLogicMovObj() {
+        this.playerControls();
+        if (accelerating == true) {
+            this.momx += Math.cos(radianfix * this.rot) * this.acc / 1000;
+            this.momy += Math.sin(radianfix * this.rot) * this.acc / 1000;
+        }
+        this.x += this.momx;
+        this.y += this.momy;
+        if (this.x >= SCPCanvas.width) this.x -= SCPCanvas.width;
+        if (this.x <= 0) this.x += SCPCanvas.width;
+        if (this.y >= SCPCanvas.height) this.y -= SCPCanvas.height;
+        if (this.y <= 0) this.y += SCPCanvas.height;
+        if (this.rot >= 360) this.rot -= 360;
+
     }
 
     drawLogic() {
