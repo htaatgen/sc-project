@@ -8,7 +8,10 @@ var objects = [];
 var projectiles = [];
 var effects = [];
 
-var lastFrameTimeMs = 0,
+var syncfactor = 2.4,
+    serverloops = 0,
+    clientloops= 0,
+    lastFrameTimeMs = 0,
     maxFPS = 60,
     netupdatecounter = 0,
     netupdatefreq = 200,
@@ -115,9 +118,10 @@ function gameLoop(timestamp) {
         }
     }
     updateFromServer();
-    clientUpdate(delta);
+    clientUpdate(delta)
     draw();
     requestAnimationFrame(gameLoop);
+    clientloops++;
 }
 
 function startGame() {

@@ -2,9 +2,9 @@
  * Created by Rik on 6-3-2016.
  */
 var socket = io();
-var netcheckspeed = 60;
+var netcheckspeed = 15;
 var netcheckcounter = 0;
-
+var timecheck = new Date().getTime()
 
 function updateFromServer() {
     if (netcheckcounter >= netcheckspeed) {
@@ -18,6 +18,9 @@ socket.on('returnstate', function (data) {
     "use strict";
     objects = [];
     projectiles = [];
+    serverloops = data.serverloops;
+    syncfactor = serverloops / clientloops;
+    clientloops = 0;
     for (var x = 0; x < data.objects.length; x++) {
         objects.push(new Player(
             data.objects[x].x,
@@ -28,7 +31,8 @@ socket.on('returnstate', function (data) {
             data.objects[x].imgx,
             data.objects[x].imgy,
             data.objects[x].momx,
-            data.objects[x].momy
+            data.objects[x].momy,
+            data.objects[x].primaryattacktype
             )
         )
     }
@@ -42,6 +46,7 @@ socket.on('returnstate', function (data) {
             )
         )
     }
+
 
     //else {
     //    projectiles[x].x = data.objects[x].x,

@@ -5,7 +5,7 @@
 
 
 class Proj extends MovObj {
-    constructor(id, x, y, acc, rot, imageurl) {
-        super(id, x, y, acc, rot, imageurl);
+    constructor(x, y, acc, rot, imageurl) {
+        super(x, y, acc, rot, imageurl);
     }
 }

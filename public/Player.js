@@ -5,12 +5,16 @@
 
 
 class Player extends MovObj {
-    constructor(x, y, acc, rot, imageurl, imgx, imgy, momx, momy) {
+    constructor(x, y, acc, rot, imageurl, imgx, imgy, momx, momy, primaryattacktype) {
         super(x, y, acc, rot, imageurl);
         this.imgx = imgx;
         this.imgy = imgy;
         this.momx = momx;
         this.momy = momy;
+        this.primaryattacktype = primaryattacktype;
+        this.firetimer = 0;
+        this.rof = 50;
+        this.shotready = true;
         this.spriteselect = 0;
     }
 
@@ -20,10 +24,48 @@ class Player extends MovObj {
             (Math.sin(radianfix * this.rot) * x) - (Math.cos(radianfix * -this.rot) * y) + this.y,
             this.acc + 500,
             imageurl,
-            this.rot-180,
+            this.rot - 180,
             imgx,
             imgy,
             imgtotal));
+    }
+
+    spawnProj(x, y, speed, imageurl) {
+        projectiles.push(new Proj(
+            (Math.cos(radianfix * this.rot) * x) - (Math.sin(radianfix * -this.rot) * y) + this.x,
+            (Math.sin(radianfix * this.rot) * x) - (Math.cos(radianfix * -this.rot) * y) + this.y,
+            speed,
+            this.rot,
+            imageurl))
+    }
+
+    playerPrimaryAttack() {
+
+        if (shooting == true && this.shotready == true) {
+            switch (this.primaryattacktype) {
+                case "bolt":
+                    this.spawnProj(20, 0, 250, "bolt.png");
+                    this.rof = 20;
+                    break;
+                case "guns":
+                    this.spawnProj(20, 5, 250, "guns.png");
+                    this.spawnProj(20, -5, 250, "guns.png");
+                    this.rof = 6;
+                    break;
+                case "beam":
+                    break;
+                default:
+                    this.spawnProj(20, 0, 250, "bolt.png");
+                    this.rof = 20;
+                    break;
+            }
+            this.shotready = false;
+        }
+        if (this.firetimer <= 0) {
+            this.firetimer = this.rof;
+            this.shotready = true;
+        }
+        this.firetimer--;
     }
 
     playerControls() {
@@ -38,10 +80,10 @@ class Player extends MovObj {
             this.spawnFlare(-20, -8, "explo1.png", 11, 11, 6);
         }
         if (rightrotating == true) {
-            this.rot -= 2;
+            this.rot -= 2 * syncfactor;
         }
         if (leftrotating == true) {
-            this.rot += 2;
+            this.rot += 2 * syncfactor;
         }
         if (accelerating != true) {
             if (this.health <= 50) this.spriteselect = 1;
@@ -52,12 +94,14 @@ class Player extends MovObj {
 
     updateLogicMovObj() {
         this.playerControls();
+        this.playerPrimaryAttack();
+
         if (accelerating == true) {
-            this.momx += Math.cos(radianfix * this.rot) * this.acc / 1000;
-            this.momy += Math.sin(radianfix * this.rot) * this.acc / 1000;
+            this.momx += Math.cos(radianfix * this.rot) * this.acc * delta / 5000;
+            this.momy += Math.sin(radianfix * this.rot) * this.acc * delta / 5000;
         }
-        this.x += this.momx;
-        this.y += this.momy;
+        this.x += this.momx * syncfactor;
+        this.y += this.momy * syncfactor;
         if (this.x >= SCPCanvas.width) this.x -= SCPCanvas.width;
         if (this.x <= 0) this.x += SCPCanvas.width;
         if (this.y >= SCPCanvas.height) this.y -= SCPCanvas.height;

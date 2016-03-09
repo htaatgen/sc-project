@@ -50,18 +50,18 @@ class Player extends mobj.MovObj {
         if (shooting == true && this.shotready == true) {
             switch (this.primaryattacktype) {
                 case "bolt":
-                    this.spawnProj(20, 0, 2500, "bolt.png", 150, 50);
+                    this.spawnProj(20, 0, 250, "bolt.png", 150, 50);
                     this.rof = 20;
                     break;
                 case "guns":
-                    this.spawnProj(20, 5, 2500, "guns.png", 100, 5);
-                    this.spawnProj(20, -5, 2500, "guns.png", 100, 5);
+                    this.spawnProj(20, 5, 250, "guns.png", 100, 5);
+                    this.spawnProj(20, -5, 250, "guns.png", 100, 5);
                     this.rof = 6;
                     break;
                 case "beam":
                     break;
                 default:
-                    this.spawnProj(20, 0, 2500, "bolt.png", 150, 50);
+                    this.spawnProj(20, 0, 250, "bolt.png", 150, 50);
                     this.rof = 20;
                     break;
             }

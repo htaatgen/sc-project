@@ -20,7 +20,7 @@ app.get('/', function (req, res) {
     res.sendfile('SCProject.html');
 });
 
-var looptimeMS=1;
+var serverloops = 0
 
 objects = [];
 projectiles = [];
@@ -63,13 +63,12 @@ function gameLoop() {
 
     setTimeout(gameLoop, 10);
 
+    serverloops++;
 
     //if (timestamp < lastFrameTimeMs + (1000 / maxFPS)) {
     //    process.nextTick(gameLoop);
     //    return;
     //}
-    //delta += timestamp - lastFrameTimeMs;
-    //lastFrameTimeMs = timestamp;
     //
     //var numUpdateSteps = 0;
     //while (delta >= timestep) {
@@ -106,7 +105,8 @@ io.on('connection', function (socket) {
 
     socket.on('checkstate', function () {
         "use strict";
-        socket.emit('returnstate', {objects, projectiles});
+        socket.emit('returnstate', {objects, projectiles, serverloops});
+        serverloops = 0;
     });
 });
 http.listen(3001, function () {
