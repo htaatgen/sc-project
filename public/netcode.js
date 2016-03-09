@@ -2,37 +2,72 @@
  * Created by Rik on 6-3-2016.
  */
 var socket = io();
+var netcheckspeed = 30;
+var netcheckcounter = 0;
 
 socket.on('initialstate', function (data) {
 });
 
+function update() {
+    if (netcheckcounter >= netcheckspeed) {
+        netcheckcounter = 0;
+        socket.emit("checkstate", {})
+    }
+    else netcheckcounter++;
+}
+
 socket.on('returnstate', function (data) {
     "use strict";
-    for (var x = 0; x < data.length; x++) {
-        console.log(data[0].id);
-        if (objects[0] == undefined || data[x].id != objects[x].id) {
-            console.log(objects[0]);
-            objects.push(new Player(
-                data[x].id,
-                data[x].x,
-                data[x].y,
-                data[x].acc,
-                data[x].rot,
-                data[x].imageurl,
-                data[x].imgx,
-                data[x].imgy
-                )
+    objects = [];
+    projectiles = [];
+    effects = [];
+    for (var x = 0; x < data.objects.length; x++) {
+        objects.push(new Player(
+            data.objects[x].id,
+            data.objects[x].x,
+            data.objects[x].y,
+            data.objects[x].acc,
+            data.objects[x].rot,
+            data.objects[x].imageurl,
+            data.objects[x].imgx,
+            data.objects[x].imgy
             )
-        }
-        else {
-            objects[x].x = data[x].x,
-                objects[x].y = data[x].y,
-                objects[x].acc = data[x].acc,
-                objects[x].rot = data[x].rot,
-                objects[x].health = data[x].health,
-                objects[x].momx = data[x].momx,
-                objects[x].momy = data[x].momy
-        }
+        )
     }
+    for (var x = 0; x < data.projectiles.length; x++) {
+        projectiles.push(new Proj(
+            data.projectiles[x].id,
+            data.projectiles[x].x,
+            data.projectiles[x].y,
+            data.projectiles[x].acc,
+            data.projectiles[x].rot,
+            data.projectiles[x].imageurl
+            )
+        )
+    }
+    for (var x = 0; x < data.effects.length; x++) {
+        effects.push(new Flare(
+            data.effects[x].id,
+            data.effects[x].x,
+            data.effects[x].y,
+            data.effects[x].acc,
+            data.effects[x].rot,
+            data.effects[x].imageurl,
+            data.effects[x].imgx,
+            data.effects[x].imgy,
+            data.effects[x].imgtotal
+            )
+        )
+    }
+    //else {
+    //    projectiles[x].x = data.objects[x].x,
+    //        objects[x].y = data.objects[x].y,
+    //        objects[x].acc = data.objects[x].acc,
+    //        objects[x].rot = data.objects[x].rot,
+    //        objects[x].health = data.objects[x].health,
+    //        objects[x].momx = data.objects[x].momx,
+    //        objects[x].momy = data.objects[x].momy;
+    //}
+
 });
 

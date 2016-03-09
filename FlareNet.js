@@ -15,5 +15,12 @@ class Flare extends mobj.MovObj {
         this.id = -1;
 
     }
+
+    updateObject() {
+        this.updateLogicMovObj();
+        if (this.animcycle >= this.imgtotal) effects.splice(this.index, 1)
+        else this.animcycle++;
+    }
 }
+
 module.exports.Flare = Flare;

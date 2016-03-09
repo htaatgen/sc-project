@@ -14,8 +14,8 @@ class MovObj extends obj.Object {
     }
 
     updateLogicMovObj() {
-        this.x += Math.cos(radianfix * this.rot) * this.acc;
-        this.y += Math.sin(radianfix * this.rot) * this.acc;
+        this.x += Math.cos(radianfix * this.rot) * this.acc / 1000;
+        this.y += Math.sin(radianfix * this.rot) * this.acc / 1000;
         if (this.x >= screenwidth) this.x -= screenwidth;
         if (this.x <= 0) this.x += screenwidth;
         if (this.y >= screenheight) this.y -= screenheight;

@@ -13,6 +13,8 @@ class Player extends mobj.MovObj {
         super(x, y, acc, rot, imageurl);
         this.firetimer = 0;
         this.rof = 50;
+        this.flaretimer = 0;
+        this.flarelimiter = 10;
         this.shotready = true;
         this.primaryattacktype = primaryattacktype;
         this.momx = 0;
@@ -22,11 +24,11 @@ class Player extends mobj.MovObj {
         this.spriteselect = 0;
     }
 
-    spawnProj(x, y, accadjust, imageurl, lifetime, damage) {
+    spawnProj(x, y, speed, imageurl, lifetime, damage) {
         projectiles.push(new prj.Proj(
             (Math.cos(radianfix * this.rot) * x) - (Math.sin(radianfix * -this.rot) * y) + this.x,
             (Math.sin(radianfix * this.rot) * x) - (Math.cos(radianfix * -this.rot) * y) + this.y,
-            this.acc + accadjust,
+            speed,
             this.rot,
             imageurl,
             lifetime,
@@ -49,11 +51,15 @@ class Player extends mobj.MovObj {
         if (accelerating == true) {
             if (this.health <= 50) this.spriteselect = 3;
             else this.spriteselect = 2;
-            this.spawnFlare(-20, 8, 180, "explo1.png", 11, 11, 6);
-            this.spawnFlare(-20, -8, 180, "explo1.png", 11, 11, 6);
+            if (this.flaretimer >= this.flarelimiter) {
+                this.spawnFlare(-20, 8, 180, "explo1.png", 11, 11, 6);
+                this.spawnFlare(-20, -8, 180, "explo1.png", 11, 11, 6);
+                this.flaretimer = 0;
+            }
+            else this.flaretimer++;
         }
-        if (rightrotating == true) this.rot += 2;
-        if (leftrotating == true) this.rot -= 2;
+        if (rightrotating == true) this.rot -= 2;
+        if (leftrotating == true) this.rot += 2;
         if (accelerating != true) {
             if (this.health <= 50) this.spriteselect = 1;
             else this.spriteselect = 0;
@@ -65,18 +71,18 @@ class Player extends mobj.MovObj {
         if (shooting == true && this.shotready == true) {
             switch (this.primaryattacktype) {
                 case "bolt":
-                    this.spawnProj(20, 0, 250, "bolt.png", 150, 50);
+                    this.spawnProj(20, 0, 2500, "bolt.png", 150, 50);
                     this.rof = 20;
                     break;
                 case "guns":
-                    this.spawnProj(20, 5, 250, "guns.png", 100, 5);
-                    this.spawnProj(20, -5, 250, "guns.png", 100, 5);
+                    this.spawnProj(20, 5, 2500, "guns.png", 100, 5);
+                    this.spawnProj(20, -5, 2500, "guns.png", 100, 5);
                     this.rof = 6;
                     break;
                 case "beam":
                     break;
                 default:
-                    this.spawnProj(20, 0, 250, "bolt.png", 150, 50);
+                    this.spawnProj(20, 0, 2500, "bolt.png", 150, 50);
                     this.rof = 20;
                     break;
             }
@@ -91,8 +97,8 @@ class Player extends mobj.MovObj {
 
     updateLogicMovObj() {
         if (accelerating == true) {
-            this.momx += Math.cos(radianfix * this.rot) * this.acc;
-            this.momy += Math.sin(radianfix * this.rot) * this.acc;
+            this.momx += Math.cos(radianfix * this.rot) * this.acc / 1000;
+            this.momy += Math.sin(radianfix * this.rot) * this.acc / 1000;
         }
         this.x += this.momx;
         this.y += this.momy;

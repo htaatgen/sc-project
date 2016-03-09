@@ -28,7 +28,7 @@ idcounter = 0;
 radianfix = Math.PI / 180;
 
 screenwidth = 900;
-screenheight = 600;
+screenheight = 500;
 
 accelerating = false;
 decelerating = false;
@@ -38,7 +38,7 @@ shooting = false;
 
 function startGame() {
 
-    objects.push(new plr.Player(50, 50, 0.05, 0, "ship1sprite.png", "guns", 41, 26));
+    objects.push(new plr.Player(50, 50, 5, 0, "ship1sprite.png", "guns", 41, 26));
     process.nextTick(gameLoop);
 }
 
@@ -58,7 +58,6 @@ function update() {
 
 function gameLoop() {
     update();
-    //Commented out the serverside loop.
     setTimeout(gameLoop, 10);
 
 
@@ -104,7 +103,7 @@ io.on('connection', function (socket) {
 
     socket.on('checkstate', function () {
         "use strict";
-        socket.emit('returnstate', objects);
+        socket.emit('returnstate', {objects, projectiles, effects});
     });
 });
 http.listen(3001, function () {

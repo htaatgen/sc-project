@@ -5,10 +5,12 @@
 
 
 class Player extends MovObj {
-    constructor(id, x, y, acc, rot, imageurl, imgx, imgy) {
-        super(id, x, y, acc, rot, imageurl);
+    constructor(id, x, y, rot, imageurl, imgx, imgy, momx, momy) {
+        super(id, x, y, rot, imageurl);
         this.imgx = imgx;
         this.imgy = imgy;
+        this.momx = momx;
+        this.momy = momy;
         this.spriteselect = 0;
     }
 

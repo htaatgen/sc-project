@@ -11,6 +11,22 @@ class MovObj extends Object {
         this.drawObject();
     }
 
+    updateLogicMovObj(delta) {
+        if (delta != undefined) {
+            this.x += Math.cos(radianfix * this.rot) * this.acc * delta / 1000;
+            this.y += Math.sin(radianfix * this.rot) * this.acc * delta / 1000;
+            if (this.x >= SCPCanvas.width) this.x -= SCPCanvas.width;
+            if (this.x <= 0) this.x += SCPCanvas.width;
+            if (this.y >= SCPCanvas.height) this.y -= SCPCanvas.height;
+            if (this.y <= 0) this.y += SCPCanvas.height;
+            if (this.rot >= 360) this.rot -= 360;
+        }
+    }
+
+    updateObject(delta) {
+        this.updateLogicMovObj(delta);
+    }
+
     drawLogic() {
         ctx.save();
         ctx.translate(this.x, this.y);

@@ -48,9 +48,16 @@ function startGame() {
     requestAnimationFrame(gameLoop);
 }
 
-
-function update() {
-    socket.emit("checkstate", {})
+function clientUpdate(delta) {
+    for (var x = 0; x < objects.length; x++) {
+        objects[x].updateObject(delta);
+    }
+    for (var x = 0; x < projectiles.length; x++) {
+        projectiles[x].updateObject(delta);
+    }
+    for (var x = 0; x < effects.length; x++) {
+        effects[x].updateObject(delta);
+    }
 }
 
 function draw() {
@@ -83,6 +90,7 @@ function gameLoop(timestamp) {
             break;
         }
     }
+    clientUpdate(delta);
     draw();
     requestAnimationFrame(gameLoop);
 }
