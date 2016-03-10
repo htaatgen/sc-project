@@ -97,8 +97,8 @@ class Player extends MovObj {
         this.playerPrimaryAttack();
 
         if (accelerating == true) {
-            this.momx += Math.cos(radianfix * this.rot) * this.acc * delta / 5000;
-            this.momy += Math.sin(radianfix * this.rot) * this.acc * delta / 5000;
+            this.momx += Math.cos(radianfix * this.rot) * this.acc * syncfactor / 1000;
+            this.momy += Math.sin(radianfix * this.rot) * this.acc * syncfactor / 1000;
         }
         this.x += this.momx * syncfactor;
         this.y += this.momy * syncfactor;

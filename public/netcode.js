@@ -4,7 +4,15 @@
 var socket = io();
 var netcheckspeed = 15;
 var netcheckcounter = 0;
-var timecheck = new Date().getTime()
+var then = new Date().getTime()
+
+function syncMatch() {
+    "use strict";
+    var now = new Date().getTime();
+    clientlooptime = now - then;
+    then = now;
+    syncfactor = clientlooptime / serverlooptime;
+}
 
 function updateFromServer() {
     if (netcheckcounter >= netcheckspeed) {
@@ -14,13 +22,15 @@ function updateFromServer() {
     else netcheckcounter++;
 }
 
+socket.on("SyncCall", function (data) {
+    "use strict";
+    serverlooptime = data;
+})
+
 socket.on('returnstate', function (data) {
     "use strict";
     objects = [];
     projectiles = [];
-    serverloops = data.serverloops;
-    syncfactor = serverloops / clientloops;
-    clientloops = 0;
     for (var x = 0; x < data.objects.length; x++) {
         objects.push(new Player(
             data.objects[x].x,

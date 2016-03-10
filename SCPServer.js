@@ -13,6 +13,7 @@ var plrd = require("./PlayerDummyNet.js");
 var prj = require("./ProjNet.js");
 var flr = require("./FlareNet.js");
 var sync = require("./SyncModule.js");
+var startgame = require("./StartGameModule.js")
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -20,6 +21,8 @@ app.use(bodyParser.json());
 app.get('/', function (req, res) {
     res.sendfile('SCProject.html');
 });
+
+serverlooptime = 10;
 
 objects = [];
 projectiles = [];
@@ -38,8 +41,6 @@ rightrotating = false;
 shooting = false;
 
 function startGame() {
-
-    objects.push(new plr.Player(50, 50, 5, 0, "ship1sprite.png", "guns", 41, 26));
     process.nextTick(gameLoop);
 }
 
@@ -64,28 +65,13 @@ function gameLoop() {
 
     sync.SyncCall();
 
-
-    //if (timestamp < lastFrameTimeMs + (1000 / maxFPS)) {
-    //    process.nextTick(gameLoop);
-    //    return;
-    //}
-    //
-    //var numUpdateSteps = 0;
-    //while (delta >= timestep) {
-    //    update(delta);
-    //    delta -= timestep;
-    //    if (++numUpdateSteps >= 240) {
-    //        delta = 0;
-    //        break;
-    //    }
-    //}
-    //draw();
-    //requestAnimationFrame(gameLoop);
+    io.sockets.emit("SyncCall", serverlooptime);
 }
-
 
 io.on('connection', function (socket) {
     console.log("User connect.");
+
+    startgame.instantiatePlayer();
 
     socket.on('keypressacc', function (data) {
         accelerating = data.acc;

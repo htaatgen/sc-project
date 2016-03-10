@@ -9,8 +9,8 @@ var projectiles = [];
 var effects = [];
 
 var syncfactor = 2.4,
-    serverloops = 0,
-    clientloops= 0,
+    serverlooptime = 10,
+    clientlooptime = 400,
     lastFrameTimeMs = 0,
     maxFPS = 60,
     netupdatecounter = 0,
@@ -121,7 +121,6 @@ function gameLoop(timestamp) {
     clientUpdate(delta)
     draw();
     requestAnimationFrame(gameLoop);
-    clientloops++;
 }
 
 function startGame() {
