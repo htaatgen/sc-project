@@ -5,7 +5,7 @@
 
 
 class Player extends MovObj {
-    constructor(x, y, acc, rot, imageurl, imgx, imgy, momx, momy, primaryattacktype) {
+    constructor(id, x, y, acc, rot, imageurl, imgx, imgy, momx, momy, primaryattacktype, health) {
         super(x, y, acc, rot, imageurl);
         this.imgx = imgx;
         this.imgy = imgy;
@@ -16,6 +16,12 @@ class Player extends MovObj {
         this.rof = 50;
         this.shotready = true;
         this.spriteselect = 0;
+        this.id = id;
+        this.accelerating = false;
+        this.leftrotating = false;
+        this.rightrotating = false;
+        this.shooting = false;
+        this.health = health;
     }
 
     spawnFlare(x, y, imageurl, imgx, imgy, imgtotal) {
@@ -41,21 +47,21 @@ class Player extends MovObj {
 
     playerPrimaryAttack() {
 
-        if (shooting == true && this.shotready == true) {
+        if (this.shooting == true && this.shotready == true) {
             switch (this.primaryattacktype) {
                 case "bolt":
-                    this.spawnProj(20, 0, 250, "bolt.png");
+                    this.spawnProj(20, 0, 2500, "bolt.png");
                     this.rof = 20;
                     break;
                 case "guns":
-                    this.spawnProj(20, 5, 250, "guns.png");
-                    this.spawnProj(20, -5, 250, "guns.png");
+                    this.spawnProj(20, 5, 2500, "guns.png");
+                    this.spawnProj(20, -5, 2500, "guns.png");
                     this.rof = 6;
                     break;
                 case "beam":
                     break;
                 default:
-                    this.spawnProj(20, 0, 250, "bolt.png");
+                    this.spawnProj(20, 0, 2500, "bolt.png");
                     this.rof = 20;
                     break;
             }
@@ -69,7 +75,7 @@ class Player extends MovObj {
     }
 
     playerControls() {
-        if (accelerating == true) {
+        if (this.accelerating == true) {
             if (this.health <= 50) {
                 this.spriteselect = 3;
             }
@@ -79,13 +85,13 @@ class Player extends MovObj {
             this.spawnFlare(-20, 8, "explo1.png", 11, 11, 6);
             this.spawnFlare(-20, -8, "explo1.png", 11, 11, 6);
         }
-        if (rightrotating == true) {
+        if (this.rightrotating == true) {
             this.rot -= 2 * syncfactor;
         }
-        if (leftrotating == true) {
+        if (this.leftrotating == true) {
             this.rot += 2 * syncfactor;
         }
-        if (accelerating != true) {
+        if (this.accelerating != true) {
             if (this.health <= 50) this.spriteselect = 1;
             else this.spriteselect = 0;
 
@@ -96,7 +102,7 @@ class Player extends MovObj {
         this.playerControls();
         this.playerPrimaryAttack();
 
-        if (accelerating == true) {
+        if (this.accelerating == true) {
             this.momx += Math.cos(radianfix * this.rot) * this.acc * syncfactor / 1000;
             this.momy += Math.sin(radianfix * this.rot) * this.acc * syncfactor / 1000;
         }

@@ -34,12 +34,6 @@ radianfix = Math.PI / 180;
 screenwidth = 900;
 screenheight = 500;
 
-accelerating = false;
-decelerating = false;
-leftrotating = false;
-rightrotating = false;
-shooting = false;
-
 function startGame() {
     process.nextTick(gameLoop);
 }
@@ -71,29 +65,68 @@ function gameLoop() {
 io.on('connection', function (socket) {
     console.log("User connect.");
 
-    startgame.instantiatePlayer();
+    socket.emit("playerid", startgame.instantiatePlayer());
 
     socket.on('keypressacc', function (data) {
-        accelerating = data.acc;
-    });
-    socket.on('keypressdec', function (data) {
-        decelerating = data.dec;
+        for (var x = 0; x < objects.length; x++) {
+            if (objects[x].id == data.id) {
+                objects[x].accelerating = data.acc;
+            }
+        }
     });
     socket.on('keypressleft', function (data) {
-        leftrotating = data.left;
+        for (var x = 0; x < objects.length; x++) {
+            if (objects[x].id == data.id) {
+                objects[x].leftrotating = data.left
+            }
+        }
     });
     socket.on('keypressright', function (data) {
-        rightrotating = data.right;
+        for (var x = 0; x < objects.length; x++) {
+            if (objects[x].id == data.id) {
+                objects[x].rightrotating = data.right
+            }
+        }
     });
     socket.on('keypresssht', function (data) {
-        shooting = data.sht;
+        for (var x = 0; x < objects.length; x++) {
+            if (objects[x].id == data.id) {
+                objects[x].shooting = data.sht
+            }
+        }
     });
 
     socket.on('checkstate', function () {
         "use strict";
-        socket.emit('returnstate', {objects, projectiles});
+        var sendobjects = [];
+        var sendprojectiles = [];
+        for (var x = 0; x < objects.length; x++) {
+            sendobjects[x] = {};
+            sendobjects[x].id = objects[x].id;
+            sendobjects[x].x = objects[x].x;
+            sendobjects[x].y = objects[x].y;
+            sendobjects[x].acc = objects[x].acc;
+            sendobjects[x].rot = objects[x].rot;
+            sendobjects[x].imageurl = objects[x].imageurl;
+            sendobjects[x].imgx = objects[x].imgx;
+            sendobjects[x].imgy = objects[x].imgy;
+            sendobjects[x].momx = objects[x].momx;
+            sendobjects[x].momy = objects[x].momy;
+            sendobjects[x].primaryattacktype = objects[x].primaryattacktype;
+            sendobjects[x].health = objects[x].health;
+        }
+        for (var x = 0; x < projectiles.length; x++) {
+            sendprojectiles[x] = {};
+            sendprojectiles[x].x = projectiles[x].x;
+            sendprojectiles[x].y = projectiles[x].y;
+            sendprojectiles[x].acc = projectiles[x].acc;
+            sendprojectiles[x].rot = projectiles[x].rot;
+            sendprojectiles[x].imageurl = projectiles[x].imageurl;
+        }
+        socket.emit('returnstate', {sendobjects, sendprojectiles});
     });
-});
+})
+;
 http.listen(3001, function () {
     console.log("Server activated.")
 });

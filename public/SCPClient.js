@@ -8,7 +8,8 @@ var objects = [];
 var projectiles = [];
 var effects = [];
 
-var syncfactor = 2.4,
+var playerid,
+    syncfactor = 2.4,
     serverlooptime = 10,
     clientlooptime = 400,
     lastFrameTimeMs = 0,
@@ -24,57 +25,12 @@ var syncfactor = 2.4,
     rightrotating = false,
     shooting = false;
 
+
 var SCPCanvas = document.getElementById("SCPCanvas");
 var ctx = SCPCanvas.getContext("2d");
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 
-
-function keyDownHandler(e) {
-    if (e.keyCode === 87) {
-        socket.emit("keypressacc", {acc: true});
-        accelerating = true;
-    }
-    if (e.keyCode === 83) {
-        socket.emit("keypressdec", {dec: true});
-        decelerating = true;
-    }
-    if (e.keyCode === 68) {
-        socket.emit("keypressleft", {left: true});
-        leftrotating = true;
-    }
-    if (e.keyCode === 65) {
-        socket.emit("keypressright", {right: true});
-        rightrotating = true;
-    }
-    if (e.keyCode === 32) {
-        socket.emit("keypresssht", {sht: true});
-        shooting = true;
-    }
-}
-
-function keyUpHandler(e) {
-    if (e.keyCode === 87) {
-        socket.emit("keypressacc", {acc: false});
-        accelerating = false;
-    }
-    if (e.keyCode === 83) {
-        socket.emit("keypressdec", {dec: false});
-        decelerating = false;
-    }
-    if (e.keyCode === 68) {
-        socket.emit("keypressleft", {left: false});
-        leftrotating = false;
-    }
-    if (e.keyCode === 65) {
-        socket.emit("keypressright", {right: false});
-        rightrotating = false;
-    }
-    if (e.keyCode === 32) {
-        socket.emit("keypresssht", {sht: false});
-        shooting = false;
-    }
-}
 
 function clientUpdate(delta) {
     for (var x = 0; x < objects.length; x++) {
@@ -118,7 +74,8 @@ function gameLoop(timestamp) {
         }
     }
     updateFromServer();
-    clientUpdate(delta)
+    syncMatch();
+    clientUpdate();
     draw();
     requestAnimationFrame(gameLoop);
 }

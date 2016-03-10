@@ -2,7 +2,7 @@
  * Created by Rik on 6-3-2016.
  */
 var socket = io();
-var netcheckspeed = 15;
+var netcheckspeed = 5;
 var netcheckcounter = 0;
 var then = new Date().getTime()
 
@@ -12,6 +12,7 @@ function syncMatch() {
     clientlooptime = now - then;
     then = now;
     syncfactor = clientlooptime / serverlooptime;
+    console.log(syncfactor)
 }
 
 function updateFromServer() {
@@ -22,42 +23,86 @@ function updateFromServer() {
     else netcheckcounter++;
 }
 
+function keyDownHandler(e) {
+    if (e.keyCode === 87) {
+        socket.emit("keypressacc", {acc: true, id: playerid});
+        objects[playerid].accelerating = true;
+    }
+    if (e.keyCode === 68) {
+        socket.emit("keypressleft", {left: true, id: playerid});
+        objects[playerid].leftrotating = true;
+    }
+    if (e.keyCode === 65) {
+        socket.emit("keypressright", {right: true, id: playerid});
+        objects[playerid].rightrotating = true;
+    }
+    if (e.keyCode === 32) {
+        socket.emit("keypresssht", {sht: true, id: playerid});
+        objects[playerid].shooting = true;
+    }
+}
+
+function keyUpHandler(e) {
+    if (e.keyCode === 87) {
+        socket.emit("keypressacc", {acc: false, id: playerid});
+        objects[playerid].accelerating = false;
+    }
+    if (e.keyCode === 68) {
+        socket.emit("keypressleft", {left: false, id: playerid});
+        objects[playerid].leftrotating = false;
+    }
+    if (e.keyCode === 65) {
+        socket.emit("keypressright", {right: false, id: playerid});
+        objects[playerid].rightrotating = false;
+    }
+    if (e.keyCode === 32) {
+        socket.emit("keypresssht", {sht: false, id: playerid});
+        objects[playerid].shooting = false;
+    }
+}
+
 socket.on("SyncCall", function (data) {
     "use strict";
     serverlooptime = data;
+})
+
+socket.on('playerid', function (data) {
+    "use strict";
+    playerid = data;
+    console.log(playerid)
 })
 
 socket.on('returnstate', function (data) {
     "use strict";
     objects = [];
     projectiles = [];
-    for (var x = 0; x < data.objects.length; x++) {
+    for (var x = 0; x < data.sendobjects.length; x++) {
         objects.push(new Player(
-            data.objects[x].x,
-            data.objects[x].y,
-            data.objects[x].acc,
-            data.objects[x].rot,
-            data.objects[x].imageurl,
-            data.objects[x].imgx,
-            data.objects[x].imgy,
-            data.objects[x].momx,
-            data.objects[x].momy,
-            data.objects[x].primaryattacktype
+            data.sendobjects[x].id,
+            data.sendobjects[x].x,
+            data.sendobjects[x].y,
+            data.sendobjects[x].acc,
+            data.sendobjects[x].rot,
+            data.sendobjects[x].imageurl,
+            data.sendobjects[x].imgx,
+            data.sendobjects[x].imgy,
+            data.sendobjects[x].momx,
+            data.sendobjects[x].momy,
+            data.sendobjects[x].primaryattacktype,
+            data.sendobjects[x].health
             )
         )
     }
-    for (var x = 0; x < data.projectiles.length; x++) {
+    for (var x = 0; x < data.sendprojectiles.length; x++) {
         projectiles.push(new Proj(
-            data.projectiles[x].x,
-            data.projectiles[x].y,
-            data.projectiles[x].acc,
-            data.projectiles[x].rot,
-            data.projectiles[x].imageurl
+            data.sendprojectiles[x].x,
+            data.sendprojectiles[x].y,
+            data.sendprojectiles[x].acc,
+            data.sendprojectiles[x].rot,
+            data.sendprojectiles[x].imageurl
             )
         )
     }
-
-
     //else {
     //    projectiles[x].x = data.objects[x].x,
     //        objects[x].y = data.objects[x].y,
