@@ -12,7 +12,7 @@ function instantiatePlayer() {
     var startx = Math.random() * screenwidth;
     var starty = Math.random() * screenheight;
 
-    objects.push(new plr.Player(shipid, startx, starty, 0.005, "Ship1sprite.png", 0, "guns", 41, 26));
+    objects.push(new plr.Player(shipid, startx, starty, 0.5, "Ship1sprite.png", 0, "guns", 41, 26));
     shipid++;
     return shipid-1;
 }

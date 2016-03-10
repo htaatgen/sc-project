@@ -32,15 +32,15 @@ document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 
 
-function clientUpdate(delta) {
+function clientUpdate() {
     for (var x = 0; x < objects.length; x++) {
-        objects[x].updateObject(delta);
+        objects[x].updateObject();
     }
     for (var x = 0; x < projectiles.length; x++) {
-        projectiles[x].updateObject(delta);
+        projectiles[x].updateObject();
     }
     for (var x = 0; x < effects.length; x++) {
-        effects[x].updateObject(delta);
+        effects[x].updateObject();
     }
 }
 

@@ -12,7 +12,6 @@ class Player extends mobj.MovObj {
         super(id, x, y, acc, rot, imageurl);
         this.firetimer = 0;
         this.rof = 50;
-        this.shotready = true;
         this.primaryattacktype = primaryattacktype;
         this.momx = 0;
         this.momy = 0;
@@ -23,7 +22,7 @@ class Player extends mobj.MovObj {
         this.leftrotating = false;
         this.rightrotating = false;
         this.shooting = false;
-
+        this.flaretimer = 0;
     }
 
     spawnProj(x, y, speed, imageurl, lifetime, damage) {
@@ -40,11 +39,19 @@ class Player extends mobj.MovObj {
     playerControls() {
         if (this.rightrotating == true) this.rot -= 2;
         if (this.leftrotating == true) this.rot += 2;
+        if (this.accelerating == true) {
+            if (this.flaretimer <= 0) {
+                this.flaretimer = 5;
+            }
+            else {
+                this.flaretimer--
+            }
+        }
     }
 
     playerPrimaryAttack() {
-
-        if (this.shooting == true && this.shotready == true) {
+        if (this.shooting == true && this.firetimer <= 0) {
+            this.firetimer = this.rof;
             switch (this.primaryattacktype) {
                 case "bolt":
                     this.spawnProj(20, 0, 2500, "bolt.png", 150, 50);
@@ -62,19 +69,14 @@ class Player extends mobj.MovObj {
                     this.rof = 20;
                     break;
             }
-            this.shotready = false;
         }
-        if (this.firetimer <= 0) {
-            this.firetimer = this.rof;
-            this.shotready = true;
-        }
-        this.firetimer--;
+        else this.firetimer--;
     }
 
     updateLogicMovObj() {
         if (this.accelerating == true) {
-            this.momx += Math.cos(radianfix * this.rot) * this.acc / 1000;
-            this.momy += Math.sin(radianfix * this.rot) * this.acc / 1000;
+            this.momx += Math.cos(radianfix * this.rot) * this.acc / 10000;
+            this.momy += Math.sin(radianfix * this.rot) * this.acc / 10000;
         }
         this.x += this.momx;
         this.y += this.momy;

@@ -35,7 +35,7 @@ screenwidth = 900;
 screenheight = 500;
 
 function startGame() {
-    process.nextTick(gameLoop);
+    setImmediate(gameLoop);
 }
 
 startGame();
@@ -53,9 +53,10 @@ function update() {
 }
 
 function gameLoop() {
+
     update();
 
-    setTimeout(gameLoop, 10);
+    setTimeout(gameLoop,10);
 
     sync.SyncCall();
 
@@ -114,6 +115,8 @@ io.on('connection', function (socket) {
             sendobjects[x].momy = objects[x].momy;
             sendobjects[x].primaryattacktype = objects[x].primaryattacktype;
             sendobjects[x].health = objects[x].health;
+            sendobjects[x].firetimer = objects[x].firetimer;
+            sendobjects[x].flaretimer = objects[x].flaretimer;
         }
         for (var x = 0; x < projectiles.length; x++) {
             sendprojectiles[x] = {};
