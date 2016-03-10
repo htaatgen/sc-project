@@ -12,6 +12,7 @@ var plr = require("./PlayerNet.js");
 var plrd = require("./PlayerDummyNet.js");
 var prj = require("./ProjNet.js");
 var flr = require("./FlareNet.js");
+var sync = require("./SyncModule.js");
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -19,8 +20,6 @@ app.use(bodyParser.json());
 app.get('/', function (req, res) {
     res.sendfile('SCProject.html');
 });
-
-var serverloops = 0
 
 objects = [];
 projectiles = [];
@@ -63,7 +62,8 @@ function gameLoop() {
 
     setTimeout(gameLoop, 10);
 
-    serverloops++;
+    sync.SyncCall();
+
 
     //if (timestamp < lastFrameTimeMs + (1000 / maxFPS)) {
     //    process.nextTick(gameLoop);
@@ -105,8 +105,7 @@ io.on('connection', function (socket) {
 
     socket.on('checkstate', function () {
         "use strict";
-        socket.emit('returnstate', {objects, projectiles, serverloops});
-        serverloops = 0;
+        socket.emit('returnstate', {objects, projectiles});
     });
 });
 http.listen(3001, function () {
