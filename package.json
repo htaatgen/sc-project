@@ -1,0 +1,28 @@
+{
+  "name": "scproject",
+  "version": "0.0.1",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "express": "^4.13.4",
+    "mysql": "^2.10.2"
+  },
+  "description": "Trying to make a multiplayer game to try out some code, MEAN stack, learning modules etc. etc.",
+  "main": "SCPServer.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/htaatgen/sc-project.git"
+  },
+  "author": "Rik Taatgen",
+  "license": "ISC",
+  "engines": {
+    "node": "5.6.0"
+  },
+  "bugs": {
+    "url": "https://github.com/htaatgen/sc-project/issues"
+  },
+  "homepage": "https://github.com/htaatgen/sc-project#readme"
+}
