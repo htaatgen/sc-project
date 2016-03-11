@@ -4,7 +4,7 @@
 
 "use strict";
 
-var SCPS = require("./SCPServer.js");
+var SCPS = require("../../SCPServer.js");
 
 
 

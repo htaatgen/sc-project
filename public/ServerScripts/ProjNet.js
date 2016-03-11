@@ -4,8 +4,6 @@
 "use strict";
 var mobj = require("./MovObjNet.js");
 
-var flr = require("./FlareNet.js");
-
 class Proj extends mobj.MovObj {
     constructor(x, y, acc, rot, imageurl, lifetime, damage) {
         super(x, y, acc, rot, imageurl);
@@ -14,10 +12,7 @@ class Proj extends mobj.MovObj {
         this.timer = 0;
     }
 
-    updateObject() {
-
-        this.updateLogicMovObj();
-
+    updateProjBehaviour() {
         if (this.lifetime <= this.timer) {
             projectiles.splice(this.index, 1);
         }
@@ -26,15 +21,17 @@ class Proj extends mobj.MovObj {
         for (var x = 0; x < objects.length; x++) {
             if (this.x > objects[x].x - 10 && this.x < objects[x].x + 10 && this.y > objects[x].y - 10 && this.y < objects[x].y + 10 && this.timer >= 20) {
                 objects[x].health -= this.damage;
-                effects.push(new flr.Flare(this.x, this.y, this.acc / 10, this.rot, "explo1.png", 11, 11, 6));
                 projectiles.splice(this.index, 1);
                 if (objects[x].health < 0) {
-                    effects.push(new flr.Flare(objects[x].x, objects[x].y, objects[x].acc, objects[x].rot, "explo2.png", 82, 82, 8));
                     objects.splice(x, 1);
-
                 }
             }
         }
+    }
+
+    updateObject() {
+        this.updateLogicMovObj();
+        this.updateProjBehaviour();
     }
 }
 module.exports.Proj = Proj

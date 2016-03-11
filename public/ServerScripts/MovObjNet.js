@@ -3,7 +3,7 @@
  */
 "use strict"
 var obj = require("./ObjectNet.js");
-var SCPS = require("./SCPServer.js");
+var SCPS = require("../../SCPServer.js");
 
 class MovObj extends obj.Object {
 

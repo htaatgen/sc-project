@@ -3,7 +3,7 @@
  */
 "use strict"
 var mobj = require("./MovObjNet.js");
-var SCPS = require("./SCPServer.js");
+var SCPS = require("../../SCPServer.js");
 var prj = require("./ProjNet.js");
 
 class Player extends mobj.MovObj {
@@ -54,18 +54,18 @@ class Player extends mobj.MovObj {
             this.firetimer = this.rof;
             switch (this.primaryattacktype) {
                 case "bolt":
-                    this.spawnProj(20, 0, 2500, "bolt.png", 150, 50);
+                    this.spawnProj(20, 0, 2500, ".././Images/bolt.png", 150, 50);
                     this.rof = 20;
                     break;
                 case "guns":
-                    this.spawnProj(20, 5, 2500, "guns.png", 100, 5);
-                    this.spawnProj(20, -5, 2500, "guns.png", 100, 5);
+                    this.spawnProj(20, 5, 2500, ".././Images/guns.png", 100, 5);
+                    this.spawnProj(20, -5, 2500, ".././Images/guns.png", 100, 5);
                     this.rof = 6;
                     break;
                 case "beam":
                     break;
                 default:
-                    this.spawnProj(20, 0, 2500, "bolt.png", 150, 50);
+                    this.spawnProj(20, 0, 2500, ".././Images/bolt.png", 150, 50);
                     this.rof = 20;
                     break;
             }

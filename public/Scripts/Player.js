@@ -5,7 +5,7 @@
 
 
 class Player extends MovObj {
-    constructor(id, x, y, acc, rot, imageurl, imgx, imgy, momx, momy, primaryattacktype, health,flaretimer,firetimer) {
+    constructor(id, x, y, acc, rot, imageurl, imgx, imgy, momx, momy, primaryattacktype, health, flaretimer, firetimer) {
         super(x, y, acc, rot, imageurl);
         this.imgx = imgx;
         this.imgy = imgy;
@@ -14,7 +14,6 @@ class Player extends MovObj {
         this.primaryattacktype = primaryattacktype;
         this.firetimer = firetimer;
         this.rof = 50;
-        this.shotready = true;
         this.spriteselect = 0;
         this.id = id;
         this.accelerating = false;
@@ -51,18 +50,18 @@ class Player extends MovObj {
             this.firetimer = this.rof;
             switch (this.primaryattacktype) {
                 case "bolt":
-                    this.spawnProj(20, 0, 2500, "bolt.png", 150, 50);
+                    this.spawnProj(20, 0, 2500, ".././Images/bolt.png", 150, 50);
                     this.rof = 20;
                     break;
                 case "guns":
-                    this.spawnProj(20, 5, 2500, "guns.png", 100, 5);
-                    this.spawnProj(20, -5, 2500, "guns.png", 100, 5);
+                    this.spawnProj(20, 5, 2500, ".././Images/guns.png", 100, 5);
+                    this.spawnProj(20, -5, 2500, ".././Images/guns.png", 100, 5);
                     this.rof = 6;
                     break;
                 case "beam":
                     break;
                 default:
-                    this.spawnProj(20, 0, 2500, "bolt.png", 150, 50);
+                    this.spawnProj(20, 0, 2500, ".././Images/bolt.png", 150, 50);
                     this.rof = 20;
                     break;
             }
@@ -85,8 +84,8 @@ class Player extends MovObj {
                 this.spriteselect = 2;
             }
             if (this.flaretimer <= 0) {
-                this.spawnFlare(-20, 8, "explo1.png", 11, 11, 6);
-                this.spawnFlare(-20, -8, "explo1.png", 11, 11, 6);
+                this.spawnFlare(-20, 8, ".././Images/explo1.png", 11, 11, 6);
+                this.spawnFlare(-20, -8, ".././Images/explo1.png", 11, 11, 6);
                 this.flaretimer = 3;
             }
             else {

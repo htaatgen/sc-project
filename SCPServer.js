@@ -5,15 +5,14 @@ var bodyParser = require("body-parser");
 var http = require('http').Server(app);
 var io = require("socket.io")(http);
 
-var main = require("./SCPMainNet.js");
-var obj = require("./ObjectNet.js");
-var mobj = require("./MovObjNet.js");
-var plr = require("./PlayerNet.js");
-var plrd = require("./PlayerDummyNet.js");
-var prj = require("./ProjNet.js");
-var flr = require("./FlareNet.js");
-var sync = require("./SyncModule.js");
-var startgame = require("./StartGameModule.js")
+var main = require("./public/ServerScripts/SCPMainNet.js");
+var obj = require("./public/ServerScripts/ObjectNet.js");
+var mobj = require("./public/ServerScripts/MovObjNet.js");
+var plr = require("./public/ServerScripts/PlayerNet.js");
+var prj = require("./public/ServerScripts/ProjNet.js");
+var flr = require("./public/ServerScripts/FlareNet.js");
+var sync = require("./public/ServerScripts/SyncModule.js");
+var startgame = require("./public/ServerScripts/StartGameModule.js")
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());

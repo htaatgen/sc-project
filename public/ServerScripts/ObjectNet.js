@@ -3,7 +3,7 @@
  */
 
 'use strict';
-var scps = require("./SCPServer.js");
+var scps = require("../../SCPServer.js");
 
 
     class Object {
