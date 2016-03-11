@@ -12,7 +12,7 @@ function syncMatch() {
     clientlooptime = now - then;
     then = now;
     syncfactor = clientlooptime / serverlooptime;
-    console.log(syncfactor)
+    console.log("Client: " + clientlooptime + ", Server: " + serverlooptime)
 }
 
 function updateFromServer() {
@@ -25,42 +25,74 @@ function updateFromServer() {
 
 function keyDownHandler(e) {
     if (e.keyCode === 87) {
-        socket.emit("keypressacc", {acc: true, id: playerid});
-        objects[playerid].accelerating = true;
+        for (var x = 0; x < objects.length; x++) {
+            if (objects[x].id == playerid) {
+                socket.emit("keypressacc", {acc: true, id: playerid});
+                objects[x].accelerating = true;
+            }
+        }
     }
     if (e.keyCode === 68) {
-        socket.emit("keypressleft", {left: true, id: playerid});
-        objects[playerid].leftrotating = true;
+        for (var x = 0; x < objects.length; x++) {
+            if (objects[x].id == playerid) {
+                socket.emit("keypressleft", {left: true, id: playerid});
+                objects[x].leftrotating = true;
+            }
+        }
     }
     if (e.keyCode === 65) {
-        socket.emit("keypressright", {right: true, id: playerid});
-        objects[playerid].rightrotating = true;
+        for (var x = 0; x < objects.length; x++) {
+            if (objects[x].id == playerid) {
+                socket.emit("keypressright", {right: true, id: playerid});
+                objects[x].rightrotating = true;
+            }
+        }
     }
     if (e.keyCode === 32) {
         socket.emit("keypresssht", {sht: true, id: playerid});
-        objects[playerid].shooting = true;
+
+        for (var x = 0; x < objects.length; x++) {
+            if (objects[x].id == playerid) {
+                objects[x].shooting = true;
+            }
+        }
     }
 }
 
 function keyUpHandler(e) {
     if (e.keyCode === 87) {
-        socket.emit("keypressacc", {acc: false, id: playerid});
-        objects[playerid].accelerating = false;
+        for (var x = 0; x < objects.length; x++) {
+            if (objects[x].id == playerid) {
+                socket.emit("keypressacc", {acc: false, id: playerid});
+                objects[x].accelerating = false;
+            }
+        }
     }
     if (e.keyCode === 68) {
-        socket.emit("keypressleft", {left: false, id: playerid});
-        objects[playerid].leftrotating = false;
+        for (var x = 0; x < objects.length; x++) {
+            if (objects[x].id == playerid) {
+                objects[x].leftrotating = false;
+                socket.emit("keypressleft", {left: false, id: playerid});
+            }
+        }
     }
     if (e.keyCode === 65) {
-        socket.emit("keypressright", {right: false, id: playerid});
-        objects[playerid].rightrotating = false;
+        for (var x = 0; x < objects.length; x++) {
+            if (objects[x].id == playerid) {
+                objects[x].rightrotating = false;
+                socket.emit("keypressright", {right: false, id: playerid});
+            }
+        }
     }
     if (e.keyCode === 32) {
-        socket.emit("keypresssht", {sht: false, id: playerid});
-        objects[playerid].shooting = false;
+        for (var x = 0; x < objects.length; x++) {
+            if (objects[x].id == playerid) {
+                objects[x].shooting = false;
+                socket.emit("keypresssht", {sht: false, id: playerid});
+            }
+        }
     }
 }
-
 socket.on("SyncCall", function (data) {
     "use strict";
     serverlooptime = data;
@@ -89,7 +121,9 @@ socket.on('returnstate', function (data) {
             data.sendobjects[x].momx,
             data.sendobjects[x].momy,
             data.sendobjects[x].primaryattacktype,
-            data.sendobjects[x].health
+            data.sendobjects[x].health,
+            data.sendobjects[x].firetimer,
+            data.sendobjects[x].flaretimer
             )
         )
     }
