@@ -1,0 +1,60 @@
+body {
+    background-color: #0c1015;
+    font-family: "Myriad Pro Light", "Calibri Light", sans-serif;
+    text-align: center;
+    color: white;
+    font-weight: lighter;
+}
+
+h1 {
+    font-size: 40px;
+}
+
+h3 {
+    font-size: 14px;
+    letter-spacing: 2px;
+    line-height: 0em;
+}
+
+#loginscreen {
+    position: fixed;
+    top: 2em;
+    left: 2em;
+    bottom: 0em;
+    width: 12em;
+    padding: 1em;
+    background-color: #0b257d;
+}
+
+#registerscreen {
+    position: fixed;
+    top: 2em;
+    left: 2em;
+    bottom: 0em;
+    width: 12em;
+    padding: 1em;
+    background-color: #0b257d;
+}
+
+input[type=text] {
+    padding: 5px 5px;
+    margin: 1px;
+    width: 80%;
+    background-color: #0c1015;
+    color: white;
+    border: none;
+}
+
+input[type=submit] {
+    border: none;
+    padding: 5px 20px;
+    margin: 2px;
+    background-color: #0c1015;
+    color: white;
+
+}
+
+.form {
+    position: absolute;
+    align-content: center;
+}

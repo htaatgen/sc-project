@@ -1,25 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html ng-app='login'>
 <head>
     <meta charset="UTF-8">
     <title>SC-Project</title>
+    <link href="./CSS/LoginCSS.css" type="text/css" rel="stylesheet">
     <script src="./Scripts/jquery-2.2.0.js"></script>
     <script src="./Scripts/angular.js"></script>
     <script src="./FrameScripts/loginscript.js"></script>
 </head>
-<body>
+<body ng-controller="loginController">
 
-<main ng-controller="LoginController">
-    <div id="title"></div>
-    <div id="loginformdiv">
-        <form id="loginform">
-            <input type="text" name="loginname">
-            <input type="text" name="loginpassword">
-            <input type="submit" name="loginsubmit">
-        </form>
-        </form>
-    </div>
-</main>
+<div id="loginscreen">
+    <form id="loginform">
+        <h1>Star Arena</h1>
+        Name
+        <input type="text" ng-model="loginname"><br><br>
+        Password
+        <input type="text" ng-model="loginpassword"><br><br>
+
+        <input type="submit" ng-click="loginsubmit()" value="Log In"><br><br>
+
+        <h3>{{loginresult}}</h3><br><br><br>
+
+        <span ng-click="showregister=!showregister">Register New Account</span>
+    </form>
+</div>
+<div id="registerscreen" ng-show="showregister">
+    <h1>Star Arena</h1><br>
+    Register new account:<br><br>
+    Name
+    <input type="text" ng-model="registername"><br><br>
+    Password
+    <input type="text" ng-model="registerpassword"><br><br>
+
+    <input type="submit" ng-click="registerSubmit()" value="Log In"><br><br>
+
+    <h3>{{loginresult}}</h3><br><br><br>
+
+    <span ng-click="showregister=!showregister">Return to Login</span>
+</div>
+
 
 </body>
 </html>
