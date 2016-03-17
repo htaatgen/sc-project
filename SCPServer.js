@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 app.get('/', function (req, res) {
-    res.sendfile('SCProject.html');
+    res.sendfile('./public/SCProject.html');
 });
 
 serverlooptime = 10;
