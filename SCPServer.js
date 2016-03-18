@@ -17,9 +17,19 @@ var startgame = require("./public/ServerScripts/StartGameModule.js")
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
+app.use(express.static('public'));
+
 app.get('/', function (req, res) {
-    res.sendfile('./public/SCProject.html');
+    res.sendFile('LoginScreen.html', {root: __dirname + "/public/"});
 });
+
+app.post("/Login", function (req, res) {
+    res.sendFile('UserScreen.html', {root: __dirname + "/public/"});
+})
+
+app.post("/Register", function (req, res) {
+    res.sendFile('UserScreen.html', {root: __dirname + "/public/"});
+})
 
 serverlooptime = 10;
 
@@ -55,7 +65,7 @@ function gameLoop() {
 
     update();
 
-    setTimeout(gameLoop,10);
+    setTimeout(gameLoop, 10);
 
     sync.SyncCall();
 
@@ -132,5 +142,3 @@ io.on('connection', function (socket) {
 http.listen(3001, function () {
     console.log("Server activated.")
 });
-
-app.use(express.static('public'));

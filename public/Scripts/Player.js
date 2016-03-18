@@ -70,12 +70,6 @@ class Player extends MovObj {
     }
 
     playerControls() {
-        if (this.rightrotating == true) {
-            this.rot -= 2 * syncfactor;
-        }
-        if (this.leftrotating == true) {
-            this.rot += 2 * syncfactor;
-        }
         if (this.accelerating == true) {
             if (this.health <= 50) {
                 this.spriteselect = 3;
@@ -91,6 +85,12 @@ class Player extends MovObj {
             else {
                 this.flaretimer--
             }
+        }
+        if (this.rightrotating == true) {
+            this.rot -= 2 * syncfactor;
+        }
+        if (this.leftrotating == true) {
+            this.rot += 2 * syncfactor;
         }
         if (this.accelerating != true) {
             if (this.health <= 50) this.spriteselect = 1;

@@ -12,7 +12,7 @@ function syncMatch() {
     clientlooptime = now - then;
     then = now;
     syncfactor = clientlooptime / serverlooptime;
-    console.log("Client: " + clientlooptime + ", Server: " + serverlooptime)
+    //console.log("Client: " + clientlooptime + ", Server: " + serverlooptime)
 }
 
 function updateFromServer() {

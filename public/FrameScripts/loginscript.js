@@ -11,24 +11,20 @@ angular.module('login', [])
             "use strict";
             var sendData = angular.toJson({name: $scope.loginname, password: $scope.loginpassword});
             $http.post("Login", sendData).then(function successCallback() {
-                $scope.loginresult = "Logging in..."
+                $scope.loginresult = "Logging in...";
+
             }, function errorCallback() {
-                $scope.loginresult = "Log In Failed!"
-
+                $scope.loginresult = "Log In Failed!";
             })
-
-        }
+        };
 
         $scope.registerSubmit = function () {
             "use strict";
             var sendData = angular.toJson({name: $scope.loginname, password: $scope.loginpassword});
-            $http.post("Login", sendData).then(function successCallback() {
-                $scope.loginresult = "Registering..."
+            $http.post("Register", sendData).then(function successCallback() {
+                $scope.loginresult = "Registering...";
             }, function errorCallback() {
-                $scope.loginresult = "Register Failed!"
-
+                $scope.loginresult = "Register Failed!";
             })
-
         }
-
-    })
+    });

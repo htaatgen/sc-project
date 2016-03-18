@@ -20,12 +20,12 @@ function instantiatePlayer() {
             break;
         case 1:
             objects.push(new plr.Player(shipid, startx, starty, 0.5, ".././Images/Ship2sprite.png", 0, "bolt", 41, 26));
+            shiptypeselector++;
+            break;
+        case 2:
+            objects.push(new plr.Player(shipid, startx, starty, 0.5, ".././Images/Ship3sprite.png", 0, "bolt", 35, 32));
             shiptypeselector = 0;
             break;
-        //case 2:
-        //    objects.push(new plr.Player(shipid, startx, starty, 0.5, ".././Images/Ship3sprite.png", 0, "bolt", 41, 26));
-        //    shiptypeselector = 0;
-        //    break;
     }
     shipid++;
     return shipid - 1;
