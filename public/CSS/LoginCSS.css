@@ -58,3 +58,33 @@ input[type=submit] {
     position: absolute;
     align-content: center;
 }
+
+.borderbox {
+    display: inline-block;
+    width: 10%;
+}
+
+nav {
+    background-color: #0b257d;
+}
+
+#playerstats {
+    display: inline-block;
+    width: 20%;
+    height: 500px;
+    background-color: #0b257d;
+}
+
+#shipselector {
+    display: inline-block;
+    width: 30%;
+    background-color: #0b257d;
+    height: 500px;
+}
+
+#gamelobby {
+    display: inline-block;
+    width: 20%;
+    background-color: #0b257d;
+    height: 500px;
+}

@@ -1,10 +1,44 @@
 <!DOCTYPE html>
+<html ng-app='user'>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>User Screen</title>
+    <title>Star Arena</title>
+    <link href="./CSS/LoginCSS.css" type="text/css" rel="stylesheet">
+    <script src="./ExtScripts/jquery-2.2.0.js"></script>
+    <script src="./ExtScripts/angular.js"></script>
+    <script src="./FrameScripts/userscript.js"></script>
 </head>
-<body>
+<body ng-controller="userController">
+
+<nav>
+    <h1>Star Arena</h1>
+</nav>
+
+<main>
+    <div class="borderbox"></div>
+    <div id="playerstats">
+        <h3>Playername:</h3><br>
+        Logo:<br>
+        Victories:<br>
+        Losses:<br>
+        Playing since:
+    </div>
+    <div id="shipselector">
+        <h3>Ship selection</h3>
+        Ship type:<br>
+        Change ship selection<br><br>
+        Weapon type:<br>
+        Change weapon selection
+    </div>
+    <div id="gamelobby">
+        <h3>Available Games:</h3><br><br><br>
+        Host Game<br>
+        Join Game
+    </div>
+    <div class="borderbox"></div>
+</main>
+
 
 </body>
 </html>

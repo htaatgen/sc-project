@@ -2,6 +2,8 @@ var express = require('express');
 var app = express();
 var mongoose = require('mongoose');
 var bodyParser = require("body-parser");
+var cookieParser = require("cookie-parser");
+var session = require("express-session");
 var http = require('http').Server(app);
 var io = require("socket.io")(http);
 
@@ -16,6 +18,8 @@ var startgame = require("./public/ServerScripts/StartGameModule.js")
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+app.use(cookieParser());
+app.use(session({secret: "SCP"}));
 
 app.use(express.static('public'));
 
@@ -30,6 +34,8 @@ app.post("/Login", function (req, res) {
 app.post("/Register", function (req, res) {
     res.sendFile('UserScreen.html', {root: __dirname + "/public/"});
 })
+
+users=[{name:"Rik", password:"P", gamesplayed: 20, victories:12, signup: "10-10-2015", shiptype: "green", guntype: "bolt"}];
 
 serverlooptime = 10;
 
