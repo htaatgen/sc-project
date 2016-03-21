@@ -27,5 +27,5 @@ function instantiatePlayer(shiptype) {
     return shipid - 1;
 }
 
-module.exports.instantiatePlayer = instantiatePlayer;
 
+module.exports.instantiatePlayer = instantiatePlayer;

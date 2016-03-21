@@ -88,3 +88,27 @@ nav {
     background-color: #0b257d;
     height: 500px;
 }
+
+#sbplayer {
+    position:fixed;
+    left: 15%;
+    width: 20%;
+    height: 100px;
+    background-color: #0b257d;
+}
+
+#sbkdratio {
+    position:fixed;
+    left: 40%;
+    width: 20%;
+    height: 100px;
+    background-color: #0b257d;
+}
+
+#sbmenu {
+    position:fixed;
+    left:65%;
+    width: 20%;
+    height: 100px;
+    background-color: #0b257d;
+}

@@ -1,18 +1,44 @@
 <!DOCTYPE html>
+
+<html ng-app='game'>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Star Arena</title>
     <link href="./CSS/SCPCSS.css" rel="stylesheet" type="text/css">
+    <link href="./CSS/LoginCSS.css" type="text/css" rel="stylesheet">
     <script src="./ExtScripts/jquery-2.2.0.js"></script>
+    <script src="./ExtScripts/angular.js"></script>
     <script src="./ExtScripts/socket.io.js"></script>
-
-
+    <script src="./FrameScripts/gamescript.js"></script>
 </head>
-<body>
+<body ng-controller="gameController">
+<nav>
+    <div id="sbplayer">
+        {{lblplayername}}<br>
+        Ship: {{lblshiptype}}<br>
+        Weapon: {{lblweapontype}}
+    </div>
+    <div id="sbkdratio">
+        <h1>Star Arena</h1><br>
+        Points: {{lblpoints}} / Defeats: {{lbldefeats}}
+    </div>
+    <div id="sbmenu">
+        {{lblsync}}
+        <span ng-click="exitGame()">Exit game</span>
+    </div>
+</nav>
+
+
 <div id="canvasDiv">
     <canvas id="SCPCanvas" width=900 height=500></canvas>
 </div>
+
+<div id="scoreboard">
+
+</div>
+
+
 <script src="./Scripts/Object.js"></script>
 <script src="./Scripts/MovObj.js"></script>
 <script src="./Scripts/Player.js"></script>

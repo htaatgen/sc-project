@@ -82,8 +82,18 @@ app.post("/UpdateUserData", function (req, res) {
 
 app.get("/StartAsHost", function (req, res) {
     "use strict";
-    console.log("Starting new game for " + req.cookies.SCPName + ".")
-    startGame();
+    if(gameactive == false) {
+        console.log("Starting new game for " + req.cookies.SCPName + ".");
+        startGame();
+    }
+    else{
+        res.status(304).send("Game already underway!")
+    }
+})
+
+app.get("/StartAsJoin", function (req, res) {
+    "use strict";
+    console.log("Joining game for " + req.cookies.SCPName + ".");
 })
 
 users = [{
@@ -108,8 +118,11 @@ radianfix = Math.PI / 180;
 screenwidth = 900;
 screenheight = 500;
 
+var gameactive=false;
+
 function startGame() {
     setImmediate(gameLoop);
+    gameactive=true;
 }
 
 function update() {
@@ -135,11 +148,21 @@ function gameLoop() {
     io.sockets.emit("SyncCall", serverlooptime);
 }
 
+
 io.on('connection', function (socket) {
-    console.log("User connect: " + socket.handshake.headers['çookie']);
+    function getCookie(cname) {
+        var name = cname + "=";
+        var ca = socket.handshake.headers.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1);
+            if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+        }
+        return "";
+    }
 
     for (var x = 0; x < users.length; x++) {
-        if (users[x].name == socket.handshake.headers.cookie.SCPName) {
+        if (users[x].name == getCookie("SCPName")) {
             socket.emit("playerid", startgame.instantiatePlayer(users[x].shiptype));
         }
     }

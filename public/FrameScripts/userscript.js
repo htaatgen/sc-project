@@ -36,4 +36,10 @@ angular.module('user', [])
             $http.get('/StartAsHost')
             $window.location.href = "SCProject.html";
         }
+
+        $scope.joinGame = function() {
+            "use strict";
+            $http.get('/StartAsJoin')
+            $window.location.href = "SCProject.html";
+        }
     });

@@ -76,6 +76,7 @@ function gameLoop(timestamp) {
     clientUpdate();
     draw();
     requestAnimationFrame(gameLoop);
+    updateSyncDisplay(syncfactor);
 }
 
 function startGame() {
