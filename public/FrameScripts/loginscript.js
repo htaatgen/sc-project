@@ -13,7 +13,6 @@ angular.module('login', [])
             $http.post("Login", sendData).then(function successCallback() {
                 $scope.loginresult = "Logging in...";
                 $window.location.href = "UserScreen.html";
-
             }, function errorCallback() {
                 $scope.loginresult = "Log In Failed!";
             })
@@ -21,9 +20,10 @@ angular.module('login', [])
 
         $scope.registerSubmit = function () {
             "use strict";
-            var sendData = angular.toJson({name: $scope.loginname, password: $scope.loginpassword});
+            var sendData = angular.toJson({name: $scope.registername, password: $scope.registerpassword});
             $http.post("Register", sendData).then(function successCallback() {
                 $scope.loginresult = "Registering...";
+                $window.location.href = "UserScreen.html";
             }, function errorCallback() {
                 $scope.loginresult = "Register Failed!";
             })

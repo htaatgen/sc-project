@@ -3,7 +3,6 @@ var app = express();
 var mongoose = require('mongoose');
 var bodyParser = require("body-parser");
 var cookieParser = require("cookie-parser");
-var session = require("express-session");
 var http = require('http').Server(app);
 var io = require("socket.io")(http);
 
@@ -19,7 +18,6 @@ var startgame = require("./public/ServerScripts/StartGameModule.js")
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(session({secret: "SCP"}));
 
 app.use(express.static('public'));
 
@@ -28,14 +26,75 @@ app.get('/', function (req, res) {
 });
 
 app.post("/Login", function (req, res) {
-    res.sendFile('UserScreen.html', {root: __dirname + "/public/"});
-})
+    for (var x = 0; x < users.length; x++) {
+        if (users[x].name == req.body.name && users[x].password == req.body.password) {
+            res.cookie('SCPName', req.body.name).send('Cookie is set for ' + req.body.name);
+            res.sendFile('UserScreen.html', {root: __dirname + "/public/"});
+        }
+        else {
+            res.status(304).send("Name not found!")
+        }
+    }
+});
 
 app.post("/Register", function (req, res) {
-    res.sendFile('UserScreen.html', {root: __dirname + "/public/"});
+    var available = true;
+    for (var x = 0; x < users.length; x++) {
+        if (users[x].name == req.body.name) {
+            available = false;
+            res.status(304).send("Name not available!")
+        }
+    }
+    if (available == true) {
+        users.push({
+            name: req.body.name,
+            password: req.body.password,
+            gamesplayed: 0,
+            victories: 0,
+            signup: "10-10-2015",
+            shiptype: "grey",
+            guntype: "guns"
+        })
+        res.cookie('SCPName', req.body.name).send('Cookie is set for ' + req.body.name);
+        res.sendFile('UserScreen.html', {root: __dirname + "/public/"});
+    }
+});
+
+app.get("/LoadUserData", function (req, res) {
+    "use strict";
+    for (var x = 0; x < users.length; x++) {
+        if (users[x].name == req.cookies.SCPName) {
+            res.send(users[x])
+        }
+    }
 })
 
-users=[{name:"Rik", password:"P", gamesplayed: 20, victories:12, signup: "10-10-2015", shiptype: "green", guntype: "bolt"}];
+app.post("/UpdateUserData", function (req, res) {
+    "use strict";
+    for (var x = 0; x < users.length; x++) {
+        if (users[x].name == req.cookies.SCPName) {
+            users[x].shiptype = req.body.shiptype;
+            users[x].guntype = req.body.guntype;
+            res.status(200).send("Values succesfully updated.")
+        }
+    }
+})
+
+app.get("/StartAsHost", function (req, res) {
+    "use strict";
+    console.log("Starting new game for " + req.cookies.SCPName + ".")
+    startGame();
+})
+
+users = [{
+    name: "Rik",
+    password: "P",
+    gamesplayed: 20,
+    victories: 12,
+    signup: "10-10-2015",
+    shiptype: "Red Disc",
+    guntype: "Plasma Bolts"
+}];
 
 serverlooptime = 10;
 
@@ -52,8 +111,6 @@ screenheight = 500;
 function startGame() {
     setImmediate(gameLoop);
 }
-
-startGame();
 
 function update() {
     for (var x = 0; x < objects.length; x++) {
@@ -79,9 +136,13 @@ function gameLoop() {
 }
 
 io.on('connection', function (socket) {
-    console.log("User connect.");
+    console.log("User connect: " + socket.handshake.headers['çookie']);
 
-    socket.emit("playerid", startgame.instantiatePlayer());
+    for (var x = 0; x < users.length; x++) {
+        if (users[x].name == socket.handshake.headers.cookie.SCPName) {
+            socket.emit("playerid", startgame.instantiatePlayer(users[x].shiptype));
+        }
+    }
 
     socket.on('keypressacc', function (data) {
         for (var x = 0; x < objects.length; x++) {
