@@ -20,5 +20,18 @@ angular.module('game', [])
             function updateSyncDisplay(updatesyncfactor) {
                 $scope.lblsync = updatesyncfactor;
             }
+
+        $scope.exitGame = function() {
+            "use strict";
+            $window.location.href = "UserScreen.html"
+        }
+
+        $scope.logOut = function() {
+            "use strict";
+            document.cookie = name +
+                '=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
+            $window.location.href = "LoginScreen.html"
+        }
+
         }
     )

@@ -51,9 +51,9 @@ app.post("/Register", function (req, res) {
             password: req.body.password,
             gamesplayed: 0,
             victories: 0,
-            signup: "10-10-2015",
-            shiptype: "grey",
-            guntype: "guns"
+            signup: new Date(),
+            shiptype: "Grey Delta",
+            guntype: "Autocannons"
         })
         res.cookie('SCPName', req.body.name).send('Cookie is set for ' + req.body.name);
         res.sendFile('UserScreen.html', {root: __dirname + "/public/"});
@@ -82,11 +82,11 @@ app.post("/UpdateUserData", function (req, res) {
 
 app.get("/StartAsHost", function (req, res) {
     "use strict";
-    if(gameactive == false) {
+    if (gameactive == false) {
         console.log("Starting new game for " + req.cookies.SCPName + ".");
         startGame();
     }
-    else{
+    else {
         res.status(304).send("Game already underway!")
     }
 })
@@ -118,11 +118,11 @@ radianfix = Math.PI / 180;
 screenwidth = 900;
 screenheight = 500;
 
-var gameactive=false;
+var gameactive = false;
 
 function startGame() {
     setImmediate(gameLoop);
-    gameactive=true;
+    gameactive = true;
 }
 
 function update() {

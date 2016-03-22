@@ -12,39 +12,39 @@
 <body ng-controller="userController">
 
 <nav>
-    <h1>Star Arena</h1>
+    <img src="./Images/logo.png" height="100px">
 </nav>
 
 <main>
     <div class="borderbox"></div>
-    <div id="playerstats">
-        <h3>Playername: {{lblplayername}}</h3><br>
+    <div id="playerstats" class="bluebox">
+        <h2>{{lblplayername}}</h2><br>
         Logo: {{lbllogo}}<br>
         Victories: {{lblvictories}}<br>
         Losses: {{lbllosses}}<br>
         Playing since: {{lbldate}}
     </div>
-    <div id="shipselector">
-        <h3>Ship selection</h3>
+    <div id="shipselector" class="bluebox">
+        <h2>Ship selection</h2><br>
         Ship type: {{lblshiptype}}<br>
         <span ng-click="shiptype=!shiptype">Change ship selection</span><br><br>
         Weapon type: {{lblweapontype}}<br>
         <span ng-click="guntype=!guntype">Change weapon selection</span>
 
-        <div id="shiptype" ng-show="shiptype">
+        <div id="shiptype" class="bluebox" ng-show="shiptype">
             <span ng-click="lblshiptype = 'Grey Delta';updateData();shiptype=!shiptype">Grey Delta</span><br>
             <span ng-click="lblshiptype = 'Green Invert';updateData();shiptype=!shiptype">Green Invert</span><br>
             <span ng-click="lblshiptype = 'Red Disc';updateData();shiptype=!shiptype">Red Disc</span><br>
         </div>
 
-        <div id="guntype" ng-show="guntype">
+        <div id="guntype" class="bluebox" ng-show="guntype">
             <span ng-click="lblweapontype = 'Autocannons';updateData();guntype=!guntype">Autocannons</span><br>
             <span ng-click="lblweapontype = 'Plasma Bolts';updateData();guntype=!guntype">Plasma Bolts</span><br>
             <span ng-click="lblweapontype = 'Laser Beam';updateData();guntype=!guntype">Laser Beam</span><br>
         </div>
     </div>
-    <div id="gamelobby">
-        <h3>Available Games:</h3><br><br><br>
+    <div id="gamelobby" class="bluebox">
+        <h2>Available Games:</h2><br><br><br>
         <span ng-click="hostGame()">Host Game</span><br>
         <span ng-click="joinGame()">Join Game</span>
     </div>
