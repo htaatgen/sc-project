@@ -5,6 +5,7 @@ var bodyParser = require("body-parser");
 var cookieParser = require("cookie-parser");
 var http = require('http').Server(app);
 var io = require("socket.io")(http);
+var path = require('path');
 
 var main = require("./public/ServerScripts/SCPMainNet.js");
 var obj = require("./public/ServerScripts/ObjectNet.js");
@@ -19,7 +20,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-app.set('views', __dirname + '/public');
+app.set('views', path.join(__dirname, 'public'));
 
 app.use(express.static('public'));
 
