@@ -29,7 +29,7 @@ app.get('/', function (req, res) {
 });
 
 app.get('/UserScreen', function (req, res) {
-    res.sendFile('UserScreen.html', {root: __dirname + "/public/"});
+    res.sendFile('userscreen.html', {root: __dirname + "/public/"});
 });
 
 app.get('/GameScreen', function (req, res) {
