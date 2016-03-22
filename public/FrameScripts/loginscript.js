@@ -23,7 +23,7 @@ angular.module('login', [])
             var sendData = angular.toJson({name: $scope.registername, password: $scope.registerpassword});
             $http.post("Register", sendData).then(function successCallback() {
                 $scope.loginresult = "Registering...";
-                $window.location.href= "UserScreen.html"
+                $window.location.href= "/UserScreen"
             }, function errorCallback() {
                 $scope.loginresult = "Register Failed!";
             })
