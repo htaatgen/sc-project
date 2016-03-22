@@ -229,6 +229,6 @@ io.on('connection', function (socket) {
     });
 })
 ;
-http.listen(process.env.port || 3001, function () {
+http.listen(process.env.PORT || 5000, function () {
     console.log("Star Arena server activated.")
 });
