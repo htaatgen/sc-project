@@ -34,12 +34,12 @@ angular.module('user', [])
         $scope.hostGame = function() {
             "use strict";
             $http.get('/StartAsHost')
-            $window.location.href = "SCProject.html";
+            $window.location.href= "/GameScreen"
         }
 
         $scope.joinGame = function() {
             "use strict";
             $http.get('/StartAsJoin')
-            $window.location.href = "SCProject.html";
+            $window.location.href= "/GameScreen"
         }
     });

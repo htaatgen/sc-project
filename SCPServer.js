@@ -27,6 +27,14 @@ app.get('/', function (req, res) {
     res.sendFile('LoginScreen.html', {root: __dirname + "/public/"});
 });
 
+app.get('/UserScreen', function (req, res) {
+    res.sendFile('UserScreen.html', {root: __dirname + "/public/"});
+});
+
+app.get('/GameScreen', function (req, res) {
+    res.sendFile('SCProject.html', {root: __dirname + "/public/"});
+});
+
 app.post("/Login", function (req, res) {
     for (var x = 0; x < users.length; x++) {
         if (users[x].name == req.body.name && users[x].password == req.body.password) {

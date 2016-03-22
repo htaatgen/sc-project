@@ -23,14 +23,14 @@ angular.module('game', [])
 
         $scope.exitGame = function() {
             "use strict";
-            $window.location.href = "UserScreen.html"
+            $window.location.href = "/UserScreen"
         }
 
         $scope.logOut = function() {
             "use strict";
             document.cookie = name +
                 '=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
-            $window.location.href = "LoginScreen.html"
+            $window.location.href = "/"
         }
 
         }
