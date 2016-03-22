@@ -1,5 +1,8 @@
 body {
-    background-color: #0c1015;
+    background-image: url("/Images/background.png");
+    background-attachment: fixed;
+    background-position: bottom;
+    background-size: 100%;
     font-family: "Myriad Pro Light", "Calibri Light", sans-serif;
     text-align: center;
     color: white;
@@ -10,30 +13,23 @@ h1 {
     font-size: 40px;
 }
 
+h2 {
+    color: #0095FE;
+    font-weight: 600;
+    line-height: 0em;
+}
+
 h3 {
     font-size: 14px;
     letter-spacing: 2px;
     line-height: 0em;
 }
 
-#loginscreen {
-    position: fixed;
-    top: 2em;
-    left: 2em;
-    bottom: 0em;
-    width: 12em;
-    padding: 1em;
-    background-color: #0b257d;
-}
-
-#registerscreen {
-    position: fixed;
-    top: 2em;
-    left: 2em;
-    bottom: 0em;
-    width: 12em;
-    padding: 1em;
-    background-color: #0b257d;
+nav {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 20%;
+    padding-right:20%;
 }
 
 input[type=text] {
@@ -64,51 +60,92 @@ input[type=submit] {
     width: 10%;
 }
 
-nav {
-    background-color: #0b257d;
+.bluebox {
+    padding: 1em;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-color: white;
+    border-width: 1px;
+    border-style: double;
+}
+
+#loginscreen {
+    position: fixed;
+    top: 2em;
+    left: 2em;
+    bottom: 0em;
+    width: 12em;
+
+}
+
+#registerscreen {
+    position: fixed;
+    top: 2em;
+    left: 2em;
+    bottom: 0em;
+    width: 12em;
 }
 
 #playerstats {
     display: inline-block;
     width: 20%;
-    height: 500px;
-    background-color: #0b257d;
+    height: 300px;
 }
 
 #shipselector {
     display: inline-block;
     width: 30%;
-    background-color: #0b257d;
-    height: 500px;
+    height: 300px;
 }
 
 #gamelobby {
     display: inline-block;
     width: 20%;
-    background-color: #0b257d;
-    height: 500px;
+    height: 300px;
 }
 
 #sbplayer {
-    position:fixed;
+    float:left;
     left: 15%;
     width: 20%;
-    height: 100px;
-    background-color: #0b257d;
+    height: 80px;
 }
 
 #sbkdratio {
-    position:fixed;
+    position: fixed;
     left: 40%;
     width: 20%;
-    height: 100px;
-    background-color: #0b257d;
+    height: 80px;
+    background-color: #000000;
 }
 
 #sbmenu {
-    position:fixed;
-    left:65%;
+    float:right;
+    left: 65%;
     width: 20%;
-    height: 100px;
-    background-color: #0b257d;
+    height: 80px;
+}
+
+#guntype {
+    position: fixed;
+    width: 20%;
+    left: 40%;
+}
+
+#shiptype {
+    position: fixed;
+    width: 20%;
+    left: 40%;
+}
+
+#canvasDiv {
+    padding-top: 120px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#SCPCanvas {
+    border-color: white;
+    border-width: 1px;
+    border-style: solid;
+
 }

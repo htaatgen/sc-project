@@ -9,11 +9,11 @@ class Proj extends MovObj {
         super(x, y, acc, rot, imageurl);
     }
     updateProjBehaviour() {
-        if (this.lifetime <= this.timer) {
-            projectiles.splice(this.index, 1);
-        }
-        else
-            this.timer++;
+        //if (this.lifetime <= this.timer) {
+        //    projectiles.splice(this.index, 1);
+        //}
+        //else
+        //    this.timer++;
         for (var x = 0; x < objects.length; x++) {
             if (this.x > objects[x].x - 10 && this.x < objects[x].x + 10 && this.y > objects[x].y - 10 && this.y < objects[x].y + 10 && this.timer >= 20) {
                 effects.push(new Flare(this.x, this.y, this.acc / 10, this.rot, ".././Images/explo1.png", 11, 11, 6));

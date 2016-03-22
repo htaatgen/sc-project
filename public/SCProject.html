@@ -14,28 +14,26 @@
 </head>
 <body ng-controller="gameController">
 <nav>
-    <div id="sbplayer">
-        {{lblplayername}}<br>
+    <div id="sbplayer" class="bluebox">
+        <h2>{{lblplayername}}</h2>
         Ship: {{lblshiptype}}<br>
         Weapon: {{lblweapontype}}
     </div>
     <div id="sbkdratio">
-        <h1>Star Arena</h1><br>
+        <img src="./Images/logo.png" height="100px" align="top"><br>
         Points: {{lblpoints}} / Defeats: {{lbldefeats}}
     </div>
-    <div id="sbmenu">
+    <div id="sbmenu" class="bluebox">
+        <h2>Options</h2>
         {{lblsync}}
-        <span ng-click="exitGame()">Exit game</span>
+        <span ng-click="exitGame()">Exit game</span><br>
+        <span ng-click="logOut()">Logout</span>
     </div>
 </nav>
 
 
 <div id="canvasDiv">
     <canvas id="SCPCanvas" width=900 height=500></canvas>
-</div>
-
-<div id="scoreboard">
-
 </div>
 
 

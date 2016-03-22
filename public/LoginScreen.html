@@ -10,9 +10,10 @@
 </head>
 <body ng-controller="loginController">
 
-<div id="loginscreen">
+<div id="loginscreen" class="bluebox" ng-hide="showlogin">
     <form id="loginform">
-        <h1>Star Arena</h1>
+        <img src="./Images/logo.png" width="100%">
+        <h2>Login</h2><br>
         Name
         <input type="text" ng-model="loginname"><br><br>
         Password
@@ -22,12 +23,12 @@
 
         <h3>{{loginresult}}</h3><br><br><br>
 
-        <span ng-click="showregister=!showregister">Register New Account</span>
+        <span ng-click="showregister=!showregister; showlogin=!showlogin">Register New Account</span>
     </form>
 </div>
-<div id="registerscreen" ng-show="showregister">
-    <h1>Star Arena</h1><br>
-    Register new account:<br><br>
+<div id="registerscreen" class="bluebox" ng-show="showregister">
+    <img src="./Images/logo.png" width="100%"><br>
+    <h2>Register</h2><br>
     Name
     <input type="text" ng-model="registername"><br><br>
     Password
@@ -37,7 +38,7 @@
 
     <h3>{{loginresult}}</h3><br><br><br>
 
-    <span ng-click="showregister=!showregister">Return to Login</span>
+    <span ng-click="showregister=!showregister; showlogin=!showlogin">Return to Login</span>
 </div>
 
 
