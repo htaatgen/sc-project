@@ -48,8 +48,8 @@
       <file leaf-file-name="SCPServer.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/SCPServer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6211699">
-              <caret line="232" column="29" selection-start-line="232" selection-start-column="29" selection-end-line="232" selection-end-column="29" />
+            <state vertical-scroll-proportion="0.7158774">
+              <caret line="234" column="0" selection-start-line="234" selection-start-column="0" selection-end-line="234" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -468,7 +468,13 @@
       <option name="project" value="LOCAL" />
       <updated>1458651515745</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Updating for Heroku">
+      <created>1458651800076</created>
+      <option name="number" value="00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1458651800076</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1045,8 +1051,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SCPServer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6211699">
-          <caret line="232" column="29" selection-start-line="232" selection-start-column="29" selection-end-line="232" selection-end-column="29" />
+        <state vertical-scroll-proportion="0.7158774">
+          <caret line="234" column="0" selection-start-line="234" selection-start-column="0" selection-end-line="234" selection-end-column="0" />
           <folding />
         </state>
       </provider>
