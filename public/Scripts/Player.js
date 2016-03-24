@@ -52,7 +52,7 @@ class Player extends MovObj {
             this.firetimer = this.rof;
             switch (this.primaryattacktype) {
                 case "Plasma Bolts":
-                    this.spawnProj(20, 0, 2500, ".././Images/bolt.png", 150, 50);
+                    this.spawnProj(20, 0, 2500, ".././Images/bolt2.png", 150, 50);
                     this.rof = 20;
                     break;
                 case "Autocannons":
@@ -61,10 +61,10 @@ class Player extends MovObj {
                     this.rof = 6;
                     break;
                 case "Laser Beam":
+                    this.spawnProj(20, 0, 2500, ".././Images/bolt.png", 150, 30);
+                    this.rof = 10;
                     break;
                 default:
-                    this.spawnProj(20, 0, 2500, ".././Images/bolt.png", 150, 50);
-                    this.rof = 20;
                     break;
             }
         }
