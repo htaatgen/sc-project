@@ -15,7 +15,7 @@ class Proj extends MovObj {
         //else
         //    this.timer++;
         for (var x = 0; x < objects.length; x++) {
-            if (this.x > objects[x].x - 10 && this.x < objects[x].x + 10 && this.y > objects[x].y - 10 && this.y < objects[x].y + 10 && this.timer >= 20) {
+            if (this.x > objects[x].x - 10 && this.x < objects[x].x + 10 && this.y > objects[x].y - 10 && this.y < objects[x].y + 10 && this.timer >= 1) {
                 effects.push(new Flare(this.x, this.y, this.acc / 10, this.rot, ".././Images/explo1.png", 11, 11, 6));
                 projectiles.splice(this.index, 1);
                 if (objects[x].health < 0) {

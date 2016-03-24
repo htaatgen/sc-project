@@ -6,7 +6,7 @@ var SCPS = require("../../SCPServer.js");
 var plr = require("./PlayerNet.js");
 var shipid = 0;
 
-function instantiatePlayer(shiptype) {
+function instantiatePlayer(shiptype, name, guntype) {
     "use strict";
 
     var startx = Math.random() * screenwidth;
@@ -14,13 +14,13 @@ function instantiatePlayer(shiptype) {
 
     switch (shiptype) {
         case "Grey Delta":
-            objects.push(new plr.Player(shipid, startx, starty, 0.5, ".././Images/Ship1sprite.png", 0, "guns", 41, 26));
+            objects.push(new plr.Player(shipid, startx, starty, 0.5, ".././Images/Ship1sprite.png", 0, guntype, 41, 26, name, 0));
             break;
         case "Green Invert":
-            objects.push(new plr.Player(shipid, startx, starty, 0.5, ".././Images/Ship2sprite.png", 0, "bolt", 41, 26));
+            objects.push(new plr.Player(shipid, startx, starty, 0.5, ".././Images/Ship2sprite.png", 0, guntype, 41, 26, name, 1));
             break;
         case "Red Disc":
-            objects.push(new plr.Player(shipid, startx, starty, 0.5, ".././Images/Ship3sprite.png", 0, "bolt", 35, 32));
+            objects.push(new plr.Player(shipid, startx, starty, 0.5, ".././Images/Ship3sprite.png", 0, guntype, 35, 32, name, 2));
             break;
     }
     shipid++;

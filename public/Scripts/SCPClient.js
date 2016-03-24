@@ -71,12 +71,11 @@ function gameLoop(timestamp) {
             break;
         }
     }
+    clientUpdate();
     updateFromServer();
     syncMatch();
-    clientUpdate();
     draw();
     requestAnimationFrame(gameLoop);
-    updateSyncDisplay(syncfactor);
 }
 
 function startGame() {

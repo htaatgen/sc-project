@@ -12,7 +12,7 @@
     <script src="./ExtScripts/socket.io.js"></script>
     <script src="./FrameScripts/gamescript.js"></script>
 </head>
-<body ng-controller="gameController">
+<body id="body" ng-controller="gameController">
 <nav>
     <div id="sbplayer" class="bluebox">
         <h2>{{lblplayername}}</h2>
@@ -25,7 +25,6 @@
     </div>
     <div id="sbmenu" class="bluebox">
         <h2>Options</h2>
-        {{lblsync}}
         <span ng-click="exitGame()">Exit game</span><br>
         <span ng-click="logOut()">Logout</span>
     </div>
@@ -34,6 +33,20 @@
 
 <div id="canvasDiv">
     <canvas id="SCPCanvas" width=900 height=500></canvas>
+</div>
+
+<div id="players" class="bluebox">
+    {{activeusernames[0].name}} {{activeusernames[0].kills}} {{activeusernames[0].deaths}}<br>
+    {{activeusernames[1].name}} {{activeusernames[1].kills}} {{activeusernames[1].deaths}}<br>
+    {{activeusernames[2].name}} {{activeusernames[2].kills}} {{activeusernames[2].deaths}}<br>
+    {{activeusernames[3].name}} {{activeusernames[3].kills}} {{activeusernames[3].deaths}}<br>
+    {{activeusernames[4].name}} {{activeusernames[4].kills}} {{activeusernames[4].deaths}}<br>
+    {{activeusernames[5].name}} {{activeusernames[5].kills}} {{activeusernames[5].deaths}}<br>
+    {{activeusernames[6].name}} {{activeusernames[6].kills}} {{activeusernames[6].deaths}}<br>
+    {{activeusernames[7].name}} {{activeusernames[7].kills}} {{activeusernames[7].deaths}}<br>
+    {{activeusernames[8].name}} {{activeusernames[8].kills}} {{activeusernames[8].deaths}}
+
+
 </div>
 
 

@@ -18,7 +18,7 @@ function syncMatch() {
 function updateFromServer() {
     if (netcheckcounter >= netcheckspeed) {
         netcheckcounter = 0;
-        socket.emit("checkstate", {})
+        socket.emit("checkstate", playerid)
     }
     else netcheckcounter++;
 }
@@ -108,6 +108,7 @@ socket.on('returnstate', function (data) {
     "use strict";
     objects = [];
     projectiles = [];
+    effects = [];
     for (var x = 0; x < data.sendobjects.length; x++) {
         objects.push(new Player(
             data.sendobjects[x].id,
@@ -123,7 +124,8 @@ socket.on('returnstate', function (data) {
             data.sendobjects[x].primaryattacktype,
             data.sendobjects[x].health,
             data.sendobjects[x].firetimer,
-            data.sendobjects[x].flaretimer
+            data.sendobjects[x].flaretimer,
+            data.sendobjects[x].flaretype
             )
         )
     }
@@ -137,6 +139,24 @@ socket.on('returnstate', function (data) {
             )
         )
     }
+    for (var x = 0; x < data.sendeffects.length; x++) {
+        effects.push(new Flare(
+            data.sendeffects[x].x,
+            data.sendeffects[x].y,
+            data.sendeffects[x].acc,
+            data.sendeffects[x].imageurl,
+            data.sendeffects[x].rot,
+            data.sendeffects[x].imgx,
+            data.sendeffects[x].imgy,
+            data.sendeffects[x].imgtotal
+            )
+        )
+    }
+
+    var scope = angular.element(document.getElementById("body")).scope();
+    scope.$apply(function () {
+        scope.updateActiveUsers(data.activeusers);
+    });
     //else {
     //    projectiles[x].x = data.objects[x].x,
     //        objects[x].y = data.objects[x].y,

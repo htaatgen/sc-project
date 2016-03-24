@@ -8,7 +8,7 @@ var prj = require("./ProjNet.js");
 
 class Player extends mobj.MovObj {
 
-    constructor(id, x, y, acc, rot, imageurl, primaryattacktype, imgx, imgy) {
+    constructor(id, x, y, acc, rot, imageurl, primaryattacktype, imgx, imgy, name, flaretype) {
         super(id, x, y, acc, rot, imageurl);
         this.firetimer = 0;
         this.rof = 50;
@@ -23,10 +23,13 @@ class Player extends mobj.MovObj {
         this.rightrotating = false;
         this.shooting = false;
         this.flaretimer = 0;
+        this.name = name;
+        this.flaretype = flaretype;
     }
 
     spawnProj(x, y, speed, imageurl, lifetime, damage) {
         projectiles.push(new prj.Proj(
+            this.name,
             (Math.cos(radianfix * this.rot) * x) - (Math.sin(radianfix * -this.rot) * y) + this.x,
             (Math.sin(radianfix * this.rot) * x) - (Math.cos(radianfix * -this.rot) * y) + this.y,
             speed,
@@ -53,16 +56,16 @@ class Player extends mobj.MovObj {
         if (this.shooting == true && this.firetimer <= 0) {
             this.firetimer = this.rof;
             switch (this.primaryattacktype) {
-                case "bolt":
+                case "Plasma Bolts":
                     this.spawnProj(20, 0, 2500, ".././Images/bolt.png", 150, 50);
                     this.rof = 20;
                     break;
-                case "guns":
+                case "Autocannons":
                     this.spawnProj(20, 5, 2500, ".././Images/guns.png", 100, 5);
                     this.spawnProj(20, -5, 2500, ".././Images/guns.png", 100, 5);
                     this.rof = 6;
                     break;
-                case "beam":
+                case "Laser Beam":
                     break;
                 default:
                     this.spawnProj(20, 0, 2500, ".././Images/bolt.png", 150, 50);
